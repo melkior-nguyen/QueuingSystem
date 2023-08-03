@@ -1,0 +1,151 @@
+.navbar {
+    height          : 100vh;
+    position        : relative;
+    background-color: #fff;
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    padding-top     : 3.2rem;
+}
+
+
+.navbar_logo {
+    width        : 50%;
+    aspect-ratio : 1.25;
+    margin-bottom: 5.4rem;
+    cursor       : pointer;
+}
+
+.navbar_logo img {
+    width          : 100%;
+    object-fit     : cover;
+    object-position: center;
+}
+
+.navbar_link {
+    text-decoration: none;
+    width          : 100%;
+    display        : flex;
+    align-items    : center;
+    padding        : 1.2rem;
+    font-size      : 1.6rem;
+    line-height    : 2.4rem;
+    font-weight    : 600;
+    color          : var(--text-color);
+    margin-bottom  : 0.6rem;
+    transition     : all 0.25s linear;
+}
+
+.navbar_link-icon {
+    display     : block;
+    width       : 2em;
+    height      : 2rem;
+    margin-right: 0.8rem;
+}
+
+.navbar_link-icon svg {
+    width          : 100%;
+    object-fit     : contain;
+    object-position: center;
+}
+
+.navbar_link.actived {
+    background-color: var(--primary-color);
+    color           : #fff;
+}
+
+.navbar_link:nth-child(7) {
+    position: relative;
+}
+
+.nabvar_link-sub-icon {
+    margin-left: auto;
+    font-size  : 2rem;
+}
+
+.navbar_link-option {
+    display                   : block;
+    position                  : absolute;
+    top                       : 0;
+    left                      : 100%;
+    width                     : 100%;
+    height                    : max-content;
+    background-color          : #fff;
+    box-shadow                : 1px 1px 4px 0px #acacac;
+    border-top-right-radius   : 1.2rem;
+    border-bottom-right-radius: 1.2rem;
+    overflow                  : hidden;
+    animation                 : navbarLinkOption 0.3s ease-in;
+    z-index                   : 2;
+}
+
+@keyframes navbarLinkOption {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+.navbar_link-item {
+    display        : block;
+    width          : 100%;
+    height         : 100%;
+    padding        : 1.2rem;
+    padding-left   : 5rem;
+    font-size      : 1.6rem;
+    line-height    : 2.4rem;
+    text-align     : left;
+    font-weight    : 500;
+    text-decoration: none;
+    color          : var(--text-color);
+}
+
+.navbar_link-item.actived {
+    background-color: var(--sub-color);
+    color           : #fff;
+}
+
+/*  button */
+
+.navbar_btn {
+    position        : absolute;
+    bottom          : 3.2rem;
+    left            : 50%;
+    width           : calc(100% - 3.6rem);
+    padding         : 1.2rem;
+    border-radius   : 8px;
+    color           : var(--primary-color);
+    background-color: #FFF2E7;
+    font-size       : 1.6rem;
+    font-weight     : 500;
+    line-height     : 2.4rem;
+    transform       : translateX(-50%);
+    display         : flex;
+    justify-content : flex-start;
+    align-items     : center;
+    gap             : 1.2rem;
+    border          : 1px solid transparent;
+    cursor          : pointer;
+    z-index: 2;
+}
+
+.navbar_btn:hover {
+    border    : 1px solid var(--primary-color);
+    transition: all 0.25s linear;
+}
+
+.navbar_btn-icon {
+    color : var(--primary-color);
+    width : 2rem;
+    height: 2rem;
+}
+
+.navbar_btn-icon svg {
+    width          : 100%;
+    object-fit     : cover;
+    object-position: center;
+}

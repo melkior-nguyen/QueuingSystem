@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './CustomStyle/root.css'
+import './CustomStyle/button.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+//component 
+import { Navbar } from './Components';
+import { Dashboard, Device, Progression, Report, Service, System, User } from './Pages';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <div className="main_container">
+          <Routes>
+            <Route path='/' element={<Dashboard/>}></Route>
+            <Route path='*' element={<Dashboard/>}></Route>
+            <Route path='/device' element={<Device/>}></Route>
+            <Route path='/service' element={<Service/>}></Route>
+            <Route path='/progression' element={<Progression/>}></Route>
+            <Route path='/report' element={<Report/>}></Route>
+            <Route path='/system' element={<System/>}></Route>
+            <Route path='/user' element={<User/>}></Route>
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 

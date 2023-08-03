@@ -1,0 +1,144 @@
+.login {
+    position        : fixed;
+    top             : 0;
+    left            : 0;
+    width           : 100%;
+    height          : 100vh;
+    background-color: var(--bg-color);
+    z-index         : 10;
+    display         : flex;
+}
+
+/* login form */
+.login_form {
+    width         : 45%;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    padding       : 8rem 5rem;
+}
+
+.login_form-logo {
+    width        : 30%;
+    aspect-ratio : 1;
+    margin-bottom: 4rem;
+}
+
+.login_form-logo img {
+    width          : 100%;
+    object-fit     : contain;
+    object-position: center;
+}
+
+.login_form-inputs {
+    display       : flex;
+    flex-direction: column;
+    gap           : 0.4rem;
+    width         : 70%;
+    margin-bottom : 4rem;
+}
+
+.login_form-inputs span {
+    font-size  : 1.8rem;
+    font-weight: 400;
+    line-height: 2.7rem;
+    color      : #37474F;
+}
+
+.login_form-inputs input {
+    padding      : 0.5rem 1.2rem;
+    border       : 1px solid #D4D4D7;
+    border-radius: 8px;
+    font-size    : 1.8rem;
+    line-height  : 2.7rem;
+    color        : #535261;
+    margin-bottom: 2rem;
+}
+
+.login_form-inputs input:focus {
+    outline: none;
+    border : 1px solid var(--primary-color);
+}
+
+.login_form-submit {
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+.login_form-submit.reset {
+    flex-direction: row;
+    gap           : 2.4rem
+}
+
+.login_form-submit p {
+    font-size  : 1.4rem;
+    line-height: 2.1rem;
+    font-weight: 400;
+    color      : var(--red-color);
+    margin-top : 1rem;
+    cursor     : pointer;
+}
+
+/* login picture */
+.login_picture {
+    width           : 55%;
+    background-color: #fff;
+    position        : relative;
+    padding         : 8rem;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+}
+
+.login_picture-wrap {
+    width       : 100%;
+    aspect-ratio: 1;
+}
+
+.login_picture-wrap img {
+    width          : 100%;
+    height         : 100%;
+    object-fit     : contain;
+    object-position: center;
+}
+
+.login_picture-detail {
+    position : absolute;
+    top      : 50%;
+    left     : 50%;
+    transform: translateY(-50%);
+}
+
+.login_picture-detail span {
+    font-size  : 3.4rem;
+    line-height: 5.1rem;
+    color      : var(--primary-color);
+}
+
+.login_picture-detail strong {
+    font-size  : 3.6rem;
+    font-weight: 900;
+    line-height: 5.4rem;
+    color      : var(--primary-color);
+}
+
+/*  log in close btn */
+.login_form-cancel {
+    position                 : absolute;
+    top                      : 2px;
+    right                    : 2px;
+    padding                  : 1rem;
+    font-size                : 2rem;
+    color                    : var(--primary-color);
+    border-bottom-left-radius: 1rem;
+    border                   : 1px solid var(--primary-color);
+    cursor                   : pointer;
+    background-color         : #fff;
+}
+
+.login_form-cancel:hover {
+    background-color: var(--primary-color);
+    color           : #fff;
+    transition      : all 0.25s linear;
+}
