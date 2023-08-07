@@ -1,0 +1,122 @@
+/* table */
+.ant-table-wrapper {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+}
+
+.ant-spin-nested-loading {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+}
+
+.ant-spin-container {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+}
+
+/* main table */
+.ant-table {
+    flex: 1;
+}
+
+/* main row  */
+.ant-table-thead {
+    height: 46px !important;
+}
+
+.ant-table-thead .ant-table-cell {
+    font-size  : 1.6rem;
+    font-weight: 600 !important;
+    line-height: 26px;
+    color      : #1E0D03 !important;
+    padding    : 0rem 1.2rem !important;
+}
+
+/* row */
+.ant-table-row {
+    height           : 46px !important;
+    /* pointer-events: none; */
+}
+
+.ant-table-row:nth-child(even) {
+    background-color: #F7F8FB;
+}
+
+/* cell */
+.ant-table-row .ant-table-cell {
+    padding    : 0 1.2rem !important;
+    font-size  : 1.4rem;
+    line-height: 22px;
+    color      : #1E0D03 !important;
+}
+
+/* main pagination */
+.ant-table-wrapper ul {
+    height         : 2rem;
+    margin         : 1rem 0 0 !important;
+    justify-content: center !important;
+}
+
+.ant-table-wrapper ul li {
+    height         : 2rem !important;
+    min-width      : 2rem !important;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+.ant-table-wrapper ul .ant-pagination-item-active {
+    border-color: #FF993C;
+}
+
+.ant-table-wrapper ul .ant-pagination-item-active:hover {
+    border-color: #FF993C;
+}
+
+.ant-table-wrapper ul .ant-pagination-item-active a {
+    color: #FF993C !important;
+}
+
+.ant-table-wrapper ul li a {
+    font-size  : 1.4rem;
+    line-height: 1.7rem;
+}
+
+.ant-table-wrapper ul .ant-pagination-item-active a {
+    color: #FF993C;
+}
+
+.ant-pagination-disabled .ant-pagination-item-link {
+    color: #A5A8B1 !important;
+}
+
+.ant-pagination-item-link {
+    color: #FF993C !important;
+}
+
+/* date picker */
+.ant-picker {
+    height: 3rem;
+}
+
+.ant-picker input {
+    font-size: 1.2rem !important;
+    color    : #A5A8B1 !important;
+    width    : max-content !important;
+}
+
+.ant-picker input {
+    min-width: 65px !important;
+    width    : 65px !important;
+}
+
+.ant-picker input::placeholder {
+    color: #A5A8B1 !important;
+}
+
+.ant-picker-suffix {
+    color: #FF993C !important
+}

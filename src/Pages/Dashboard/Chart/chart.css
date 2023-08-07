@@ -1,0 +1,57 @@
+.chart {
+    height          : 100%;
+    display         : flex;
+    flex-direction  : column;
+    justify-content : space-between;
+    background-color: #fff;
+    border-radius   : 1.2rem;
+    padding         : 2.4rem;
+}
+
+.chart_top {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.chart_title {
+    display       : flex;
+    flex-direction: column;
+    gap           : 4px;
+}
+
+.chart_title h3 {
+    font-size  : 2rem;
+    line-height: 3rem;
+    font-weight: 700;
+}
+
+.chart_title span {
+    font-size  : 1.4rem;
+    line-height: 2.1rem;
+    font-weight: 400;
+}
+
+.chart_options {
+    display    : flex;
+    align-items: center;
+    gap        : 8px;
+}
+
+.chart_options span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.chart_dropdown {
+    width: 12rem;
+}
+
+
+
+
+.chart_line {
+    display    : flex;
+    align-items: flex-end;
+}

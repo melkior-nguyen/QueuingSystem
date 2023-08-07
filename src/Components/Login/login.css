@@ -45,7 +45,7 @@
     color      : #37474F;
 }
 
-.login_form-inputs input {
+.login_form-input {
     padding      : 0.5rem 1.2rem;
     border       : 1px solid #D4D4D7;
     border-radius: 8px;
@@ -55,9 +55,22 @@
     margin-bottom: 2rem;
 }
 
-.login_form-inputs input:focus {
+.login_form-input:focus {
     outline: none;
     border : 1px solid var(--primary-color);
+}
+
+.login_form-input.error{
+    border: 1px solid var(--red-color);
+}
+
+.login_form-error-noti {
+    color: var(--red-color) !important; 
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .login_form-submit {

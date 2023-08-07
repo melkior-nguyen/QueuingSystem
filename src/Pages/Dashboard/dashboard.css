@@ -1,0 +1,74 @@
+.dashboard {
+    display       : flex;
+    flex-direction: row;
+    gap           : 2.4rem;
+
+}
+
+.content_title {
+    margin-top   : 10rem;
+    font-size    : 2.4rem;
+    line-height  : 3.6rem;
+    font-weight  : 700;
+    color        : var(--primary-color);
+    margin-bottom: 1.6rem;
+}
+
+/* chart */
+.dashboard_chart-wrap {
+    flex          : 2;
+    display       : flex;
+    flex-direction: column;
+    margin-bottom : 2.4rem;
+}
+
+.dashboard_chart-detail {
+    display: flex;
+    gap    : 1.2rem;
+}
+
+.dashboard_chart {
+    flex      : 1;
+    margin-top: 1.6rem;
+}
+
+/* general */
+.dashboard_general-wrap {
+    padding                  : 2.4rem;
+    flex                     : 1;
+    display                  : flex;
+    flex-direction           : column;
+    background-color         : rgba(255, 255, 255, 0.5);
+    border-top-left-radius   : 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.dashboard_general {
+    flex  : 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+
+.dashboard_calendar {
+    margin-top   : 2.4rem;
+    border-radius: 12px;
+    overflow     : hidden;
+    box-shadow   : 2px 2px 15px rgba(70, 64, 67, 0.1);
+}
+
+.calendar_header {
+    text-align : center;
+    padding    : 2rem;
+    font-size  : 1.6rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color      : var(--primary-color);
+    cursor     : pointer;
+}
+
+
+.ant-picker-content th {
+    color: var(--primary-color) !important;
+}

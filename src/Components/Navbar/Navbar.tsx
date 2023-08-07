@@ -11,9 +11,13 @@ import { BiDotsVerticalRounded } from 'react-icons/bi'
 
 import { LuLogOut } from 'react-icons/lu'
 import { LuLogIn } from 'react-icons/lu'
-import Login from '../Login/Login'
+import { Login } from '../index'
+import { updateCurrentUser } from '../../Redux/userslice'
+import { useAppDispatch, useAppSelector } from '../../Redux/store'
 
 function Navbar() {
+  const currUser = useAppSelector(state => state.users.currUser)
+  const distpach = useAppDispatch()
   const [activedLink, setActivedLink] = useState<number>(1)
   const [activedSubLink, setActivedSubLink] = useState<number>(1)
   //navbar option
@@ -21,7 +25,7 @@ function Navbar() {
   // login layout
   const [activeLoginLayout, setActiveLoginLayout] = useState<boolean>(false)
   // login, logout status
-  const [loggedIn, setLoggedIn] = useState<boolean>(false)
+  const [loggedIn, setLoggedIn] = useState<boolean>(currUser.username !== '')
 
   const handleActivedLink = (num: number) => {
     setActivedLink(num)
@@ -30,11 +34,23 @@ function Navbar() {
     setActivedSubLink(num)
   }
 
+  // reset current user info when log out
+  const guest = {
+    id: 0,
+    name: '',
+    email: '',
+    username: '',
+    password: '',
+    role: '',
+    telephone: 0,
+    avatar: ''
+  }
   // handle log out btn
   const handleLogOut = () => {
     const confirmLogOut = window.confirm('Bạn có thật sự muốn đăng xuất')
     if (confirmLogOut) {
       setLoggedIn(false)
+      distpach(updateCurrentUser(guest))
     } else return
   }
 
@@ -42,6 +58,8 @@ function Navbar() {
   const handleLogIn = () => {
     setActiveLoginLayout(true)
   }
+
+
   return (
     <div className='navbar'>
       <div className="navbar_logo" onClick={() => handleActivedLink(1)}>

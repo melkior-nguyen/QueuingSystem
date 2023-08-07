@@ -1,0 +1,59 @@
+.topbar {
+    position   : absolute;
+    top        : 2.4rem;
+    right      : 6.4rem;
+    display    : flex;
+    align-items: center;
+    gap        : 3rem;
+    z-index: 1;
+}
+
+.topbar_noti {
+    width: 3.2rem;
+    aspect-ratio: 1;
+    background-color: #FFF2E7;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.topbar_noti svg {
+    color: var(--primary-color);
+    width: 2rem;
+    height: 2rem;
+}
+
+.topbar_ava {
+    display    : flex;
+    align-items: center;
+    gap        : 0.8rem;
+}
+
+.topbar_ava-link {
+    display      : block;
+    width        : 4rem;
+    height       : 4rem;
+    border-radius: 50%;
+    overflow     : hidden;
+    cursor       : pointer;
+}
+
+.topbar_ava-link img {
+    width          : 100%;
+    height         : 100%;
+    object-fit     : cover;
+    object-position: center;
+}
+
+.topbar_ava-hello small {
+    font-size  : 1.2rem;
+    line-height: 1.8rem;
+    color      : var(--text-color);
+}
+
+.topbar_ava-hello strong {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #535261;
+}

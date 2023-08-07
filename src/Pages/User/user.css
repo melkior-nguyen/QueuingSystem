@@ -1,0 +1,78 @@
+.user {
+    position: relative;
+}
+
+.user_content {
+    background-color: #fff;
+    border-radius   : 1.2rem;
+    display         : flex;
+    align-items     : center;
+    position        : absolute;
+    top             : 50%;
+    left            : 0;
+    transform       : translateY(-50%);
+    width           : calc(100% - 4rem);
+    padding         : 4rem 2.4rem;
+    gap             : 2.4rem;
+    box-shadow: 0 2px 6px 0 #DBDBDB;
+}
+
+/* user ava */
+.user_ava-wrap {
+    width         : 20%;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    gap           : 1.6rem;
+}
+
+.user_ava {
+    width        : 100%;
+    aspect-ratio : 1;
+    overflow     : hidden;
+    border-radius: 50%;
+}
+
+.user_ava img {
+    width          : 100%;
+    height         : 100%;
+    object-fit     : cover;
+    object-position: center;
+}
+
+.user_ava-wrap span {
+    font-size  : 2.4rem;
+    line-height: 3.6rem;
+    color      : #282739;
+    font-weight: 700;
+}
+
+/* user info */
+.user_infos {
+    flex     : 1;
+    display  : flex;
+    flex-wrap: wrap;
+    gap      : 2.4rem;
+}
+
+.user_info {
+    width : calc(50% - 1.2rem);
+}
+
+.user_info span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+    color      : #282739;
+    margin-bottom: 8px;
+}
+
+.user_info p {
+    padding: 1.2rem 1.6rem;
+    background-color: #EAEAEC;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+    color: #535261;
+    border-radius: 6px;
+}

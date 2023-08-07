@@ -1,0 +1,66 @@
+.tag {
+    flex            : 1;
+    background-color: #fff;
+    border-radius   : 1.2rem;
+    padding         : 8px;
+    display         : flex;
+    flex-direction  : column;
+    gap             : 1.2rem;
+    max-width: 50%;
+}
+
+.tag_name {
+    display    : flex;
+    gap        : 1.2rem;
+    align-items: center;
+}
+
+.tag_name-icon {
+    width          : 3.8rem;
+    aspect-ratio   : 1;
+    border-radius  : 50%;
+    color          : currentColor;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    font-size      : 2rem;
+}
+
+.tag_name>span {
+    font-size  : 1.4rem;
+    line-height: 1.8rem;
+    font-weight: 700;
+    color      : #535261;
+}
+
+.tag_info {
+    display        : flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tag_info strong {
+    font-size  : 3rem;
+    line-height: 4.5rem;
+    font-weight: 700;
+    color      : #535261;
+}
+
+.tag_info-percent {
+    border-radius: 7px;
+    font-size    : 0.8rem;
+    line-height  : 1.2rem;
+    font-weight  : 400;
+    height: max-content;
+    padding: 4px;
+}
+
+.tag_info-percent.up {
+    background-color: rgba(255, 149, 1, 0.15);
+    color           : #FF9138;
+}
+
+.tag_info-percent.down {
+    background-color: rgba(231, 63, 63, 0.15);
+    color           : #E73F3F;
+}
