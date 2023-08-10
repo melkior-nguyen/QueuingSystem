@@ -15,13 +15,10 @@
     display        : flex;
     justify-content: center;
     align-items    : center;
-    border         : 2px solid rgba(255, 117, 6, 1);
     border-radius  : 50%;
-    font-size      : 1.4rem;
-    line-height    : 2.4rem;
-    font-weight    : 700;
     margin-right   : 2.4rem;
     position       : relative;
+    transition: all 0.5s linear;
 }
 
 .label_percent::after {
@@ -31,10 +28,21 @@
     top          : 50%;
     left         : 50%;
     transform    : translate(-50%, -50%);
-    width        : 4.5rem;
+    width        : 5.5rem;
     aspect-ratio : 1;
     border-radius: 50%;
-    border       : 2px solid #acacac;
+    background-color: #fff;
+    z-index: 1;
+}
+.label_percent span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size      : 1.4rem;
+    line-height    : 2.4rem;
+    font-weight    : 700;
+    z-index: 2;
 }
 
 

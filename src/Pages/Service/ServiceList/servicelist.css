@@ -1,0 +1,66 @@
+.service_list-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.service_list {
+    height : 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* main */
+.service_list-main {
+    width         : 90%;
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+/* navbar  */
+.service_list-nav {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 1.6rem;
+}
+
+.service_list-status>span,
+.service_list-date>span,
+.service_list-search>span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.service_list-date-range {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 4.6rem;
+}
+
+.service_list-dropdown {
+    width       : 30rem;
+    margin-right: 2.4rem;
+}
+
+.service_list-search {
+    margin-left: auto;
+}
+
+/* table */
+.service_list-table {
+    flex          : 1;
+    display       : flex;
+    padding-bottom: 2.4rem;
+}
+
+/* sub */
+.service_list-sub {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-end;
+    padding-top   : 8.6rem;
+}

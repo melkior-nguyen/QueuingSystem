@@ -19,25 +19,27 @@
 
 /* main table */
 .ant-table {
-    flex: 1;
+    border-radius: 1.2rem !important;
+    overflow: hidden !important;
 }
 
 /* main row  */
 .ant-table-thead {
-    height: 46px !important;
+    height: 4.9rem !important;
 }
 
 .ant-table-thead .ant-table-cell {
+    background-color: var(--primary-color) !important;
     font-size  : 1.6rem;
     font-weight: 600 !important;
     line-height: 26px;
-    color      : #1E0D03 !important;
+    color      : #fff !important;
     padding    : 0rem 1.2rem !important;
 }
 
 /* row */
 .ant-table-row {
-    height           : 46px !important;
+    height           : 4.9rem !important;
     /* pointer-events: none; */
 }
 
@@ -55,9 +57,9 @@
 
 /* main pagination */
 .ant-table-wrapper ul {
+    margin-top: auto !important;
     height         : 2rem;
-    margin         : 1rem 0 0 !important;
-    justify-content: center !important;
+    justify-content: flex-end !important;
 }
 
 .ant-table-wrapper ul li {
@@ -69,15 +71,15 @@
 }
 
 .ant-table-wrapper ul .ant-pagination-item-active {
-    border-color: #FF993C;
+    border-color: var(--primary-color);
 }
 
 .ant-table-wrapper ul .ant-pagination-item-active:hover {
-    border-color: #FF993C;
+    border-color: var(--primary-color);
 }
 
 .ant-table-wrapper ul .ant-pagination-item-active a {
-    color: #FF993C !important;
+    color: var(--primary-color) !important;
 }
 
 .ant-table-wrapper ul li a {
@@ -86,7 +88,7 @@
 }
 
 .ant-table-wrapper ul .ant-pagination-item-active a {
-    color: #FF993C;
+    color: var(--primary-color);
 }
 
 .ant-pagination-disabled .ant-pagination-item-link {
@@ -94,12 +96,14 @@
 }
 
 .ant-pagination-item-link {
-    color: #FF993C !important;
+    color: var(--primary-color) !important;
 }
 
 /* date picker */
 .ant-picker {
-    height: 3rem;
+    height: 100%;
+    display: flex !important; 
+    border-radius: 8px !important;
 }
 
 .ant-picker input {
@@ -110,7 +114,7 @@
 
 .ant-picker input {
     min-width: 65px !important;
-    width    : 65px !important;
+    width    : 75px !important;
 }
 
 .ant-picker input::placeholder {
@@ -118,5 +122,5 @@
 }
 
 .ant-picker-suffix {
-    color: #FF993C !important
+    color: var(--primary-color) !important
 }

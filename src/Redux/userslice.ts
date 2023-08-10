@@ -32,7 +32,7 @@ export const updatePassword = createAsyncThunk(
         return updatedPassword
     }
 )
-// add login user to render user info
+// update login user to render user info
 export const updateCurrentUser = createAsyncThunk(
     'users/updateCurrentUser',
     async (loginUser: userType) => {

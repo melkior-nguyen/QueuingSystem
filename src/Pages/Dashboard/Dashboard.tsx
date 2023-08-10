@@ -14,7 +14,9 @@ import { Calendar } from 'antd'
 function Dashboard() {
   return (
     <div className='main_content dashboard'>
-      <h3>Dashboard</h3>
+      <h3 className='top_content '>
+        <span className='current'>Dashboard</span>
+      </h3>
       <div className="dashboard_chart-wrap">
         <h3 className='content_title'>Biểu đồ cấp số</h3>
         <div className="dashboard_chart-detail">
@@ -47,15 +49,15 @@ function Dashboard() {
       <div className="dashboard_general-wrap">
         <h3 className='content_title'>Tổng quan</h3>
         <div className="dashboard_general">
-          <Label icon={<TbDeviceDesktop />} percent='90%'
+          <Label icon={<TbDeviceDesktop />} percent={90}
             quantity={4221} status={{ on: 3799, off: 422 }}
             name='Thiết bị' color='orange' />
-          <Label icon={<IoChatbubblesOutline />} percent='76%'
+          <Label icon={<IoChatbubblesOutline />} percent={76}
             quantity={276} status={{ on: 210, off: 66 }}
-            name='Thiết bị' color='blue' />
-          <Label icon={<GoStack />} percent='86%'
+            name='Dịch vụ' color='blue' />
+          <Label icon={<GoStack />} percent={86}
             quantity={4221} status={{ on: 3721, off: 500 }}
-            name='Thiết bị' color='green' />
+            name='Cấp số  ' color='green' />
         </div>
         <div className="dashboard_calendar">
           <Calendar className='calendar' fullscreen={false} mode='month'

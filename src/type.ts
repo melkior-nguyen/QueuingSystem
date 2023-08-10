@@ -1,3 +1,4 @@
+// user
 export type userType = {
     id: number,
     name: string,
@@ -22,4 +23,36 @@ export type lineChartDataType = {
         pointBackgroundColor: string,
         tension: number,
     }[]
+}
+
+//  device data
+export type deviceDataType = {
+    key: string,
+    code: string,
+    name: string,
+    type: string,
+    ip: string,
+    status: number,
+    connect: number,
+    service: string[],
+}
+
+//progression rule
+export type progressionRuleType = {
+    auto: { start: string, end: string },
+    prefix: string,
+    surfix: string,
+    reset: boolean
+}
+
+
+
+//  service data
+export type serviceDataType = {
+    key: string,
+    code: string,
+    name: string,
+    desc: string
+    status: number,
+    progRule: progressionRuleType
 }

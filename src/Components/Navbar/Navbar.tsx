@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './navbar.css'
 import { Link } from 'react-router-dom'
 import { LuLayoutDashboard } from 'react-icons/lu'
@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../Redux/store'
 function Navbar() {
   const currUser = useAppSelector(state => state.users.currUser)
   const distpach = useAppDispatch()
-  const [activedLink, setActivedLink] = useState<number>(1)
+  const [activedLink, setActivedLink] = useState<number>(0)
   const [activedSubLink, setActivedSubLink] = useState<number>(1)
   //navbar option
   const [activedNavbarOption, setActivedNavbarOption] = useState<boolean>(false)
@@ -26,6 +26,10 @@ function Navbar() {
   const [activeLoginLayout, setActiveLoginLayout] = useState<boolean>(false)
   // login, logout status
   const [loggedIn, setLoggedIn] = useState<boolean>(currUser.username !== '')
+
+  useEffect(() => {
+    setLoggedIn(currUser.username !== '')
+  }, [currUser])
 
   const handleActivedLink = (num: number) => {
     setActivedLink(num)

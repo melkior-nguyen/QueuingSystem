@@ -1,0 +1,126 @@
+.service_add-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.service_add {
+    height        : 100%;
+    padding       : 0 6.4rem 2.4rem 0;
+    display       : flex;
+    flex-direction: column;
+}
+
+.service_add-content {
+    width           : 100%;
+    height          : 100%;
+    background-color: #fff;
+    border-radius   : 1.6rem;
+    box-shadow      : 2px 2px 8px 0 rgba(232, 239, 244, 0.8);
+    display         : flex;
+    flex-direction  : column;
+    padding         : 1.6rem 2.4rem;
+    margin-bottom   : 2.4rem;
+}
+
+.service_add-content h3 {
+    font-size    : 2rem;
+    line-height  : 3rem;
+    font-weight  : 700;
+    color        : var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+/* service add info  */
+.service_add-info {
+    display      : flex;
+    flex-wrap    : wrap;
+    column-gap   : 2.4rem;
+    row-gap      : 1.6rem;
+    margin-bottom: 2rem;
+}
+
+.service_add-info-left,
+.service_add-info-right {
+    width         : calc(50% - 1.2rem);
+    display       : flex;
+    flex-direction: column;
+    gap           : 1rem;
+}
+
+
+.service_add-info-left strong,
+.service_add-info-right strong {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.service_add-info-left input,
+.service_add-info-right textarea {
+    padding         : 1rem 1.2rem;
+    border          : 1px solid #D4D4D7;
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
+    border-radius   : 8px;
+    font-size       : 1.6rem;
+    line-height     : 2.4rem;
+    background-color: #fff;
+}
+
+.service_add-info-right textarea {
+    height: 100%;
+    resize: none;
+}
+
+.service_add-info-left input::placeholder,
+.service_add-info-right textarea::placeholder {
+    color: #A9A9B0;
+}
+
+.service_add-info-left input:focus,
+.service_add-info-right textarea:focus {
+    border : 1px solid var(--primary-color);
+    outline: none;
+}
+
+/* progression */
+.service_add-progression {
+    width: 100%;
+}
+
+.service_add-progression-rule {
+    display      : flex;
+    align-items  : center;
+    gap          : 8px;
+    margin-bottom: 1.2rem;
+}
+
+.service_add-progression-rule input[type='checkbox'] {
+    width       : 2rem;
+    aspect-ratio: 1;
+    border      : 1px solid rgba(66, 119, 255, 1);
+}
+
+.service_add-progression-rule span {
+    width      : 20rem;
+    font-size  : 1.6rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+}
+
+.service_add-progression-rule input[type='text'] {
+    padding      : 1rem 1.2rem;
+    width        : 6rem;
+    border-radius: 8px;
+    border       : 1px solid rgba(212, 212, 215, 1);
+}
+
+/* btn */
+.service_add-btn {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    gap            : 3.2rem;
+}

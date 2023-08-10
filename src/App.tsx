@@ -6,6 +6,7 @@ import './CustomStyle/root.css'
 import './CustomStyle/button.css'
 import './CustomStyle/ant.css'
 import './CustomStyle/dropdown.css'
+import './CustomStyle/input.css'
 //component 
 import { Navbar, Topbar } from './Components';
 import { Dashboard, Device, Progression, Report, Service, System, User } from './Pages';

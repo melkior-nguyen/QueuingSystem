@@ -1,0 +1,64 @@
+.device_detail-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.device_detail {
+    height        : 100%;
+    padding-bottom: 5rem;
+    display       : flex;
+}
+
+.device_detail-main {
+    width           : 90%;
+    height          : 100%;
+    background-color: #fff;
+    border-radius   : 1.6rem;
+    box-shadow      : 2px 2px 8px 0 rgba(232, 239, 244, 0.8);
+    display         : flex;
+    flex-direction  : column;
+    padding         : 1.6rem 2.4rem;
+}
+
+.device_detail-main h3 {
+    font-size    : 2rem;
+    line-height  : 3rem;
+    font-weight  : 700;
+    color        : var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.device_detail_list {
+    display  : flex;
+    flex-wrap: wrap;
+    row-gap  : 1.6rem;
+}
+
+.device_detail_list p {
+    width          : 50%;
+    display        : flex;
+    justify-content: space-between;
+}
+
+.device_detail_list strong {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.device_detail_list span {
+    width      : 70%;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+    color      : rgba(83, 82, 97, 1);
+}
+
+.device_detail-sub {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-end;
+    padding-top   : 8.6rem;
+}
