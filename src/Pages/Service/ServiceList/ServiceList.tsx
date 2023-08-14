@@ -110,7 +110,7 @@ function ServiceList({ setCurrTopic, setCurrService }: any) {
                             </div>
                         </div>
                         <div className="service_list-date">
-                            <span>Trạng thái kết nối</span>
+                            <span>Chọn thời gian</span>
                             <div className='service_list-date-range'>
                                 <DatePicker className='date_picker' placeholder='Chọn ngày' />
                                 <AiFillCaretRight style={{ color: 'var(--primary-color)' }} />
@@ -124,7 +124,7 @@ function ServiceList({ setCurrTopic, setCurrService }: any) {
                     </div>
                     {/* Table */}
                     <div className="service_list-table">
-                        <Table dataSource={serviceData} columns={columns} pagination={{ pageSize: 9 }} />
+                        <Table dataSource={serviceData} columns={columns} pagination={{ pageSize: 10 }} />
                     </div>
                 </div>
                 {/* Sub */}

@@ -110,11 +110,13 @@
     line-height: 2.4rem;
 }
 
-.service_add-progression-rule input[type='text'] {
+.service_add-progression-rule p {
     padding      : 1rem 1.2rem;
-    width        : 6rem;
+    width: max-content;
+    border: 1px solid #acacac;
     border-radius: 8px;
-    border       : 1px solid rgba(212, 212, 215, 1);
+    font-size: 1.6rem;
+    line-height: 2.4rem;
 }
 
 /* btn */

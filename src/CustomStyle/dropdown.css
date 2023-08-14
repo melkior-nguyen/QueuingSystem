@@ -1,5 +1,5 @@
 .dropdown {
-    position: relative;
+    position        : relative;
     padding         : 1rem 1.2rem;
     border          : 1px solid #D4D4D7;
     display         : flex;
@@ -11,8 +11,9 @@
     line-height     : 2.4rem;
     color           : #333;
     background-color: #fff;
-    transition: all 0.25s ease-in;
+    transition      : all 0.25s ease-in;
 }
+
 .dropdown:hover {
     border: 1px solid var(--primary-color);
 }
@@ -35,7 +36,9 @@
     border          : 1px solid #D4D4D7;
     border-radius   : 8px;
     box-shadow      : 0 0 6px 0 #E7E9F2;
-    z-index: 2;
+    z-index         : 2;
+    max-height      : 20rem;
+    overflow        : auto;
 }
 
 .dropdown_list.hide {
@@ -47,7 +50,8 @@
     font-size  : 1.6rem;
     line-height: 2.4rem;
     cursor     : pointer;
-    color: #333;
+    color      : #333;
+    white-space: nowrap;
 }
 
 .dropdown_list span:hover {

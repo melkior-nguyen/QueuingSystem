@@ -1,0 +1,69 @@
+.prog_list-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.prog_list {
+    height   : 100%;
+    display  : flex;
+    flex-wrap: nowrap;
+}
+
+/* main */
+.prog_list-main {
+    width         : 90%;
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+/* navbar  */
+.prog_list-nav {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 1.6rem;
+}
+
+.prog_list-status>span,
+.prog_list-date>span,
+.prog_list-search>span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.prog_list-date-range {
+    display    : flex;
+    align-items: center;
+    gap        : 4px;
+    height     : 4.6rem;
+}
+
+.prog_list-dropdown {
+    width       : 21rem;
+    margin-right: 1.6rem;
+}
+
+.prog_list-search {
+    margin-left: auto;
+}
+
+.prog_list-search > .search {
+    width: 20rem;
+}
+/* table */
+.prog_list-table {
+    flex          : 1;
+    display       : flex;
+    padding-bottom: 2.4rem;
+}
+
+/* sub */
+.prog_list-sub {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-end;
+    padding-top   : 8.6rem;
+}

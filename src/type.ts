@@ -56,3 +56,16 @@ export type serviceDataType = {
     status: number,
     progRule: progressionRuleType
 }
+
+// customer data
+
+export type customerDataType = {
+    key: string,
+    number: string,
+    name: string,
+    service: string,
+    time_get: string,
+    time_expired: string,
+    status: number,
+    source: string
+}

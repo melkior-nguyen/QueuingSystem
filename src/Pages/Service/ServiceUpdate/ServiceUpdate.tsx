@@ -16,41 +16,72 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
     const handleProgCheckbox1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             setCheckbox1(false)
-        } else setCheckbox1(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.auto.start = 'none'
+                newService.progRule.auto.end = 'none'
+                return newService
+            })
+        } else {
+            setCheckbox1(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.auto.start = '0001'
+                newService.progRule.auto.end = '9999'
+                return newService
+            })
+        }
     }
     const handleProgCheckbox2 = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             setCheckbox2(false)
-        } else setCheckbox2(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.prefix = 'none'
+                return newService
+            })
+        } else {
+            setCheckbox2(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.prefix = '2023'
+                return newService
+            })
+        }
     }
     const handleProgCheckbox3 = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             setCheckbox3(false)
-        } else setCheckbox3(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.surfix = 'none'
+                return newService
+            })
+        } else {
+            setCheckbox3(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.surfix = '2023'
+                return newService
+            })
+        }
     }
     const handleProgCheckbox4 = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             setCheckbox4(false)
-        } else setCheckbox4(true)
-    }
-
-    //handle progression input
-    const [input1, setInput1] = useState<string>('0001')
-    const [input2, setInput2] = useState<string>('9999')
-    const [input3, setInput3] = useState<string>('0001')
-    const [input4, setInput4] = useState<string>('0001')
-
-    const handleProgInput1 = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput1(e.target.value)
-    }
-    const handleProgInput2 = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput2(e.target.value)
-    }
-    const handleProgInput3 = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput3(e.target.value)
-    }
-    const handleProgInput4 = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput4(e.target.value)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.reset = false
+                return newService
+            })
+        } else {
+            setCheckbox4(true)
+            setUpdateServiceInfo(prev => {
+                const newService = { ...prev }
+                newService.progRule.reset = true
+                return newService
+            })
+        }
     }
 
     // submit
@@ -62,64 +93,9 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
             alert('Vui lòng điền đầy đủ thông tin!')
             return
         }
-        if (!checkBox1 && !checkBox2 && !checkBox3 && !checkBox4) {
+        if (!checkBox1 && !checkBox2 && !checkBox3) {
             alert("Chọn ít nhất một quy tắc cấp số")
             return
-        }
-        // handle checkbox
-        if (checkBox1) {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.auto.start = input1
-                updateService.progRule.auto.end = input2
-                return updateService
-            })
-        } else {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.auto.start = 'none'
-                updateService.progRule.auto.end = 'none'
-                return updateService
-            })
-        }
-        if (checkBox2) {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.prefix = input3
-                return updateService
-            })
-        } else {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.prefix = 'none'
-                return updateService
-            })
-        }
-        if (checkBox3) {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.surfix = input4
-                return updateService
-            })
-        } else {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.surfix = 'none'
-                return updateService
-            })
-        }
-        if (checkBox4) {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.reset = true
-                return updateService
-            })
-        } else {
-            setUpdateServiceInfo(prev => {
-                const updateService = { ...prev }
-                updateService.progRule.reset = false
-                return updateService
-            })
         }
         console.log(updateServiceInfo)
         alert('Cập nhật thành công!')
@@ -155,27 +131,19 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox1(e)} checked={checkBox1} />
                             <span>Tăng tự động từ</span>
-                            <input type="text"
-                                onChange={handleProgInput1}
-                                value={input1} />
+                            <p>0001</p>
                             <span style={{ width: 'max-content' }}>đến</span>
-                            <input type="text"
-                                onChange={handleProgInput2}
-                                value={input2} />
+                            <p>9999</p>
                         </div>
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox2(e)} checked={checkBox2} />
                             <span>Prefix</span>
-                            <input type="text"
-                                onChange={handleProgInput3}
-                                value={input3} />
+                            <p>2023</p>
                         </div>
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox3(e)} checked={checkBox3} />
                             <span>Surfix</span>
-                            <input type="text"
-                                onChange={handleProgInput4}
-                                value={input4} />
+                            <p>2023</p>
                         </div>
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox4(e)} checked={checkBox4} />

@@ -1,0 +1,147 @@
+.service_detail-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.service_detail {
+    height   : 100%;
+    display  : flex;
+    flex-wrap: nowrap;
+}
+
+/* main */
+.service_detail-main {
+    width  : 90%;
+    height : 100%;
+    display: flex;
+    gap    : 2.4rem;
+}
+
+/*  main info */
+.service_detail-info {
+    flex            : 1;
+    background-color: #fff;
+    padding         : 1.6rem;
+    border-radius   : 12px;
+}
+
+.service_detail-info h3 {
+    font-size    : 2rem;
+    line-height  : 3rem;
+    font-weight  : 700;
+    color        : var(--primary-color);
+    margin-bottom: 1.6rem;
+}
+
+.service_detail-info p {
+    margin-bottom: 1.6rem;
+}
+
+.service_detail-info p strong {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.service_detail-info p span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    color      : #535261;
+}
+
+.service_detail-progression-rule {
+    display      : flex;
+    align-items  : center;
+    gap          : 8px;
+    margin-bottom: 1.2rem;
+}
+
+.service_detail-progression-rule span {
+    width      : 14rem;
+    font-size  : 1.6rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+}
+
+.service_detail-progression-rule p {
+    padding      : 1rem 1.2rem;
+    width        : max-content;
+    border       : 1px solid #acacac;
+    border-radius: 8px;
+    font-size    : 1.6rem;
+    line-height  : 2.4rem;
+}
+
+/* main table wrap */
+.service_detail-table-wrap {
+    flex            : 2;
+    background-color: #fff;
+    padding         : 1.6rem;
+    border-radius   : 12px;
+    display         : flex;
+    flex-direction  : column;
+    gap             : 1.6rem;
+}
+
+/* main nav */
+.service_detail-nav {
+    display        : flex;
+    justify-content: flex-start;
+    gap            : 1.6rem;
+}
+
+.service_detail-dropdown>span,
+.service_detail-date>span,
+.service_detail-search>span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+
+.service_detail-dropdown {
+    width: 20rem;
+}
+
+.service_detail-date-range {
+    display    : flex;
+    align-items: center;
+    gap        : 4px;
+    height     : 4.6rem;
+}
+
+.service_detail-search .search {
+    width: 20rem;
+}
+
+/* main table */
+.service_detail-table {
+    flex: 1;
+    display: flex;
+}
+
+/* sub */
+.service_detail-sub {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-end;
+    padding-top   : 8.6rem;
+    gap           : 1rem;
+}
+
+.service_detail-sub>.main_btn:first-child::after {
+    content         : '';
+    display         : block;
+    width           : 60%;
+    height          : 2px;
+    border-radius   : 10px;
+    background-color: var(--primary-color);
+    position        : absolute;
+    top             : calc(100% + 0.5rem);
+    left            : 50%;
+    transform       : translateX(-50%);
+    z-index         : 1;
+}

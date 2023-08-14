@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../Redux/store'
 function Navbar() {
   const currUser = useAppSelector(state => state.users.currUser)
   const distpach = useAppDispatch()
-  const [activedLink, setActivedLink] = useState<number>(0)
+  const [activedLink, setActivedLink] = useState<number>(1)
   const [activedSubLink, setActivedSubLink] = useState<number>(1)
   //navbar option
   const [activedNavbarOption, setActivedNavbarOption] = useState<boolean>(false)
