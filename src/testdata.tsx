@@ -343,7 +343,7 @@ export const customerData: customerDataType[] = [
         key: '20230009',
         number: '20230009',
         name: 'Hoàng Minh Tuệ',
-        service: 'mắt',
+        service: 'Khám mắt',
         time_get: '07:30-18/08/2023',
         time_expired: '12:00-24/08/2023',
         status: 200,
