@@ -20,7 +20,7 @@
 /* main table */
 .ant-table {
     border-radius: 1.2rem !important;
-    overflow: hidden !important;
+    overflow     : hidden !important;
 }
 
 /* main row  */
@@ -30,11 +30,11 @@
 
 .ant-table-thead .ant-table-cell {
     background-color: var(--primary-color) !important;
-    font-size  : 1.6rem;
-    font-weight: 600 !important;
-    line-height: 26px;
-    color      : #fff !important;
-    padding    : 0rem 1.2rem !important;
+    font-size       : 1.6rem;
+    font-weight     : 600 !important;
+    line-height     : 26px;
+    color           : #fff !important;
+    padding         : 0rem 1.2rem !important;
 }
 
 /* row */
@@ -57,7 +57,7 @@
 
 /* main pagination */
 .ant-table-wrapper ul {
-    margin-top: auto !important;
+    margin-top     : auto !important;
     height         : 2rem;
     justify-content: flex-end !important;
 }
@@ -101,8 +101,8 @@
 
 /* date picker */
 .ant-picker {
-    height: 100%;
-    display: flex !important; 
+    height       : 100%;
+    display      : flex !important;
     border-radius: 8px !important;
 }
 

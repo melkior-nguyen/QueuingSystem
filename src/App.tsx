@@ -9,7 +9,7 @@ import './CustomStyle/dropdown.css'
 import './CustomStyle/input.css'
 //component 
 import { Navbar, Topbar } from './Components';
-import { Dashboard, Device, Progression, Report, Service, System, User } from './Pages';
+import { Dashboard, Device, Progression, Report, Service, SystemAccount, SystemHistory, SystemRole, User } from './Pages';
 
 function App() {
 
@@ -26,7 +26,9 @@ function App() {
             <Route path='/service' element={<Service />}></Route>
             <Route path='/progression' element={<Progression />}></Route>
             <Route path='/report' element={<Report />}></Route>
-            <Route path='/system' element={<System />}></Route>
+            <Route path='/system/role' element={<SystemRole />}></Route>
+            <Route path='/system/account' element={<SystemAccount />}></Route>
+            <Route path='/system/history' element={<SystemHistory />}></Route>
             <Route path='/user' element={<User />}></Route>
           </Routes>
         </div>

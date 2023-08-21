@@ -10,6 +10,7 @@ import DeviceUpdate from './DeviceUpdate/DeviceUpdate'
 function Device() {
   const [currTopic, setCurrTopic] = useState<string>('device_list')
   const [currDevice, setCurrDevice] = useState<deviceDataType | {}>({})
+  const [currIndex, setCurrIndex] = useState<number>(0)
 
 
   return (
@@ -28,9 +29,9 @@ function Device() {
         {currTopic === 'device_update' && <span className='current'> Cập nhật thiết bị</span>}
       </h3>
       {/* component */}
-      {currTopic === 'device_list' && <DeviceList setCurrTopic={setCurrTopic} setCurrDevice={setCurrDevice} />}
+      {currTopic === 'device_list' && <DeviceList setCurrTopic={setCurrTopic} setCurrDevice={setCurrDevice} setCurrIndex={setCurrIndex}/>}
       {currTopic === 'device_detail' && <DeviceDetail currDevice={currDevice} setCurrTopic={setCurrTopic}/>}
-      {currTopic === 'device_update' && <DeviceUpdate setCurrTopic={setCurrTopic} currDevice={currDevice} />}
+      {currTopic === 'device_update' && <DeviceUpdate setCurrTopic={setCurrTopic} currDevice={currDevice} currIndex={currIndex}/>}
       {currTopic === 'device_add' && <DeviceAdd setCurrTopic={setCurrTopic} />}
     </div>
   )

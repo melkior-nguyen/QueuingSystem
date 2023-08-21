@@ -29,7 +29,7 @@ function DeviceDetail({ currDevice, setCurrTopic }: any) {
                         </p>
                         <p>
                             <strong>Tên đăng nhập: </strong>
-                            <span>{currUser.name}</span>
+                            <span>{currUser.username}</span>
                         </p>
                         <p>
                             <strong>Địa chỉ IP: </strong>

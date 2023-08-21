@@ -36,6 +36,7 @@ function Navbar() {
   }
   const handleActivedSubLink = (num: number) => {
     setActivedSubLink(num)
+    setActivedNavbarOption(!activedNavbarOption)
   }
 
   // reset current user info when log out
@@ -46,8 +47,9 @@ function Navbar() {
     username: '',
     password: '',
     role: '',
-    telephone: 0,
-    avatar: ''
+    telephone: '',
+    avatar: '',
+    status: 404
   }
   // handle log out btn
   const handleLogOut = () => {
@@ -66,7 +68,7 @@ function Navbar() {
 
   return (
     <div className='navbar'>
-      <div className="navbar_logo" onClick={() => handleActivedLink(1)}>
+      <div className="navbar_logo" >
         <img src={require('../../access/image/logo.png')} alt="" />
       </div>
 
@@ -111,7 +113,12 @@ function Navbar() {
       </Link>
 
       <Link
-        to='/system'
+        to={(() => {
+          if (activedSubLink === 1) return 'system/role'
+          if (activedSubLink === 2) return 'system/account'
+          if (activedSubLink === 3) return 'system/history'
+          return 'system/role'
+        })()}
         className={activedLink === 6 ? ' navbar_link actived' : 'navbar_link'}
         onClick={() => handleActivedLink(6)}>
         <TbSettings2 className='navbar_link-icon' />
@@ -123,15 +130,15 @@ function Navbar() {
         }
         {activedLink === 6 && activedNavbarOption &&
           <div className="navbar_link-option">
-            <span className={activedSubLink === 1 ? ' navbar_link-item actived' : 'navbar_link-item'}
+            <Link to='system/role' className={activedSubLink === 1 ? ' navbar_link-item actived' : 'navbar_link-item'}
               onClick={() => handleActivedSubLink(1)}
-            >Quản lý vai trò</span>
-            <span className={activedSubLink === 2 ? ' navbar_link-item actived' : 'navbar_link-item'}
+            >Quản lý vai trò</Link>
+            <Link to='system/account' className={activedSubLink === 2 ? ' navbar_link-item actived' : 'navbar_link-item'}
               onClick={() => handleActivedSubLink(2)}
-            >Quản lý tài khoản</span>
-            <span className={activedSubLink === 3 ? ' navbar_link-item actived' : 'navbar_link-item'}
+            >Quản lý tài khoản</Link>
+            <Link to='system/history' className={activedSubLink === 3 ? ' navbar_link-item actived' : 'navbar_link-item'}
               onClick={() => handleActivedSubLink(3)}
-            >Nhật ký người dùng</span>
+            >Nhật ký người dùng</Link>
           </div>
         }
       </Link>

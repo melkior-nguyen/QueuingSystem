@@ -1,13 +1,22 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import './devicelist.css'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { Search } from '../../../Components'
 import { Table } from 'antd'
-import { deviceData } from '../../../testdata'
 import { GoDotFill } from 'react-icons/go'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchDevices } from '../../../Redux/deviceSlice'
+import { deviceDataType } from '../../../type'
 
-function DeviceList({ setCurrTopic, setCurrDevice }: any) {
+function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
+    const deviceList = useAppSelector(state => state.devices.deviceList)
+    const dispatch = useAppDispatch()
+    
+    useEffect(() => {
+        dispatch(fetchDevices())
+    }, [dispatch])
+
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
     const [activeConnectOptions, setActiveConnectOptions] = useState<boolean>(false)
 
@@ -111,6 +120,7 @@ function DeviceList({ setCurrTopic, setCurrDevice }: any) {
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
                             setCurrDevice(record)
+                            setCurrIndex(index)
                             setCurrTopic('device_update')
                         }}
                     >Cập nhật</span>
@@ -118,6 +128,7 @@ function DeviceList({ setCurrTopic, setCurrDevice }: any) {
             }
         },
     ]
+
 
     return (
         <div className="device_list-wrap">
@@ -158,7 +169,10 @@ function DeviceList({ setCurrTopic, setCurrDevice }: any) {
                     </div>
                     {/* Table */}
                     <div className="device_list-table">
-                        <Table dataSource={deviceData} columns={columns} pagination={{ pageSize: 10 }} />
+                        <Table
+                            columns={columns}
+                            dataSource={deviceList}
+                            pagination={{ pageSize: 10, showSizeChanger: false }} />
                     </div>
                 </div>
                 {/* Sub */}

@@ -1,4 +1,4 @@
-import { customerDataType, deviceDataType, serviceDataType } from "./type";
+import { customerDataType, deviceDataType, serviceDataType, systemRoleDataType } from "./type";
 
 export const deviceData: deviceDataType[] = [
     {
@@ -378,5 +378,83 @@ export const customerData: customerDataType[] = [
         time_expired: '12:00-24/08/2023',
         status: 200,
         source: 'Kiosk'
+    },
+]
+
+export const systemRoleData: systemRoleDataType[] = [
+    {
+        key: 'Bác sĩ',
+        name: 'Bác sĩ',
+        desc: 'Thực hiện nhiệm vụ điều trị trực tiếp tại bệnh viện',
+        role: {
+            A: {
+                device: true,
+                service: true,
+                customer: true
+            },
+            B: {
+                role: false,
+                account: false
+            }
+        }
+
+    },
+    {
+        key: 'Kế toán',
+        name: 'Kế toán',
+        desc: 'Thực hiện nhiệm vụ thống kê và tổng hợp số liệu',
+        role: {
+            A: {
+                device: true,
+                service: true,
+                customer: false
+            },
+            B: {
+                role: false,
+                account: false
+            }
+        }
+    },
+    {
+        key: 'Lễ tân',
+        name: 'Lễ tân',
+        desc: 'Thực hiện nhiệm vụ tiếp và cấp số bệnh nhân',
+        role: {
+            A: {
+                device: false,
+                service: false,
+                customer: true
+            },
+            B: {
+                role: false,
+                account: false
+            }
+        }
+    },
+    {
+        key: 'Admin',
+        name: 'Admin',
+        desc: 'Thực hiện nhiệm vụ quản lý hệ thống ',
+        role: {
+            A: {
+                device: true,
+                service: true,
+                customer: true
+            },
+            B: {
+                role: true,
+                account: true
+            }
+        }
+
+    }
+]
+
+export const historyData = [
+    {
+        username: 'minhhieu',
+        time: '02/20/2000',
+        ip: '192.168.1.1',
+        action: 'Cập nhật dịch vụ 13:45 21/08/2023'
     },
 ]

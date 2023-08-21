@@ -6,8 +6,9 @@ export type userType = {
     username: string,
     password: string,
     role: string,
-    telephone: number,
-    avatar: string
+    telephone: string,
+    avatar: string,
+    status: number
 }
 
 // line chart
@@ -69,3 +70,23 @@ export type customerDataType = {
     status: number,
     source: string
 }
+
+// system role data
+
+export type systemRoleDataType = {
+    key: string,
+    name: string,
+    desc: string,
+    role: {
+        A: {
+            device: boolean,
+            service: boolean,
+            customer: boolean
+        }
+        B: {
+            role: boolean,
+            account: boolean
+        }
+    }
+}
+

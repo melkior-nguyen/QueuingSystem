@@ -1,0 +1,119 @@
+.role_add-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.role_add {
+    height        : 100%;
+    padding       : 0 6.4rem 2.4rem 0;
+    display       : flex;
+    flex-direction: column;
+}
+
+.role_add-content {
+    width           : 100%;
+    height          : 100%;
+    background-color: #fff;
+    border-radius   : 1.6rem;
+    box-shadow      : 2px 2px 8px 0 rgba(232, 239, 244, 0.8);
+    display         : flex;
+    flex-direction  : column;
+    padding         : 1.6rem 2.4rem;
+    margin-bottom   : 2.4rem;
+}
+
+.role_add-content h3 {
+    font-size    : 2rem;
+    line-height  : 3rem;
+    font-weight  : 700;
+    color        : var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.role_add-content-container {
+    flex   : 1;
+    display: flex;
+    gap    : 2.4rem;
+}
+
+.role_add-content-left,
+.role_add-content-right {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+}
+
+.role_add-content-left>span {
+    font-size    : 1.6rem;
+    line-height  : 2.4rem;
+    font-weight  : 600;
+    color        : #282739;
+    margin-bottom: 8px;
+}
+
+.role_add-content-left>input,
+.role_add-content-left>textarea {
+    border-radius: 8px;
+    outline      : none;
+    border       : 1px solid #acacac;
+    padding      : 1.1rem;
+    font-size    : 1.6rem;
+    line-height  : 2.4rem;
+    font-weight  : 400;
+    resize       : none;
+    margin-bottom: 1.2rem;
+    font-family  : 'Nunito';
+}
+
+.role_add-content-left>textarea::placeholder {
+    font-family: 'Nunito';
+}
+
+.role_add-content-left>input:focus,
+.role_add-content-left>textarea:focus {
+    outline: none;
+    border : 1px solid var(--primary-color);
+}
+
+.role_add-content-right>span {
+    font-size    : 1.6rem;
+    line-height  : 2.4rem;
+    font-weight  : 600;
+    color        : #282739;
+    margin-bottom: 8px;
+}
+
+.role_add-group {
+    background-color: #FFF2E7;
+    border-radius   : 8px;
+    padding         : 2.4rem;
+    display         : flex;
+    flex-direction  : column;
+    gap             : 8px;
+}
+
+.role_add-group strong {
+    font-size  : 2rem;
+    line-height: 3rem;
+    font-weight: 700;
+    color      : var(--primary-color);
+}
+
+.role_add-group p {
+    display    : flex;
+    align-items: center;
+    gap        : 8px;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+
+/* btn */
+.role_add-btn {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    gap            : 3.2rem;
+}

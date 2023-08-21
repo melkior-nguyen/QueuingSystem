@@ -1,0 +1,55 @@
+.role_list-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.role_list {
+    height   : 100%;
+    display  : flex;
+    flex-wrap: nowrap;
+}
+
+/* main */
+.role_list-main {
+    width         : 90%;
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+/* navbar  */
+.role_list-nav {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 1.6rem;
+}
+
+.role_list-search>span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.role_list-search {
+    margin-left: auto;
+}
+
+.role_list-search > .search {
+    width: 30rem;
+}
+/* table */
+.role_list-table {
+    flex          : 1;
+    display       : flex;
+    padding-bottom: 2.4rem;
+}
+
+/* sub */
+.role_list-sub {
+    flex          : 1;
+    display       : flex;
+    flex-direction: column;
+    align-items   : flex-end;
+    padding-top   : 8.6rem;
+}

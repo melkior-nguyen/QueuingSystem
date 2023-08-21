@@ -14,7 +14,6 @@ function User() {
 
   return (
     <div className='main_content user'>
-      <h3 className='top_content current'>Thông tin cá nhân</h3>
       {currUser.username !== '' ?
         <div className="user_content">
 

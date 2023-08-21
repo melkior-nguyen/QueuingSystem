@@ -3,7 +3,9 @@ import Device from "./Device/Device";
 import Service from "./Service/Service";
 import Progression from "./Progression/Prog";
 import Report from "./Report/Report";
-import System from "./System/System";
+import SystemRole from "./System/SystemRole/SystemRole";
+import SystemAccount from "./System/SystemAccount/SystemAccount";
+import SystemHistory from "./System/SystemHistory/SystemHistory";
 import User from "./User/User";
 
 export {
@@ -12,6 +14,8 @@ export {
     Service,
     Progression,
     Report,
-    System,
+    SystemRole,
+    SystemAccount,
+    SystemHistory,
     User
 }

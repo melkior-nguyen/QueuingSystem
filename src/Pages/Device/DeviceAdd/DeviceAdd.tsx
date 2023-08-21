@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import './deviceadd.css'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { deviceDataType } from '../../../type'
-import { useAppSelector } from '../../../Redux/store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { addDevice } from '../../../Redux/deviceSlice'
 
 function DeviceAdd({ setCurrTopic }: any) {
+    const dispatch = useAppDispatch()
+
+
     const [activeDeviceAddOption, setActiveDeviceAddOptions] = useState<boolean>(false)
     const [deviceAddOption, setDeviceAddOption] = useState<string>('Chọn thiết bị')
 
@@ -54,10 +58,11 @@ function DeviceAdd({ setCurrTopic }: any) {
             alert('Thông tin đăng nhập không chính xác')
             return
         }
-
+        dispatch(addDevice(newDeviceInfo))
         alert('Thêm thiết bị thành công')
-        console.log(newDeviceInfo, userInput)
-        setCurrTopic('device_list')
+        setTimeout(() => {
+            setCurrTopic('device_list')
+        }, 2000);
     }
 
     return (
@@ -70,7 +75,7 @@ function DeviceAdd({ setCurrTopic }: any) {
                         <div>
                             <strong>Mã thiết bị: </strong>
                             <input type="text" placeholder='Nhập mã thiết bị'
-                                onChange={(e) => setNewDeviceInfo(prev => ({ ...prev, code: e.target.value }))} />
+                                onChange={(e) => setNewDeviceInfo(prev => ({ ...prev, code: e.target.value, key: e.target.value }))} />
                         </div>
                         <div>
                             <strong>Loại thiết bị: </strong>
@@ -86,7 +91,7 @@ function DeviceAdd({ setCurrTopic }: any) {
                         <div>
                             <strong>Tên thiết bị: </strong>
                             <input type="text" placeholder='Nhập tên thiết bị'
-                                onChange={(e) => setNewDeviceInfo(prev => ({ ...prev, name: e.target.value, key: e.target.value }))}
+                                onChange={(e) => setNewDeviceInfo(prev => ({ ...prev, name: e.target.value }))}
                             />
                         </div>
                         <div>

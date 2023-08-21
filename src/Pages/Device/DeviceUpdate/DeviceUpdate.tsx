@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
 import './deviceupdate.css'
 import { deviceDataType } from '../../../type'
-import { useAppSelector } from '../../../Redux/store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
+import { updateDevice } from '../../../Redux/deviceSlice'
 
-function DeviceUpdate({ setCurrTopic, currDevice }: any) {
+function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
+    const dispatch = useAppDispatch()
+
+
     const [activeDeviceUpdateOption, setActiveDeviceUpdateOptions] = useState<boolean>(false)
     const [deviceAddOption, setDeviceAddOption] = useState<string>('Chọn thiết bị')
 
     const [userInput, setUserInput] = useState<{ username: string, password: string }>(
         {
-            username: '',
-            password: ''
+            username: 'thucanh',
+            password: '1234'
         }
     )
     const currUser = useAppSelector(state => state.users.currUser)
@@ -54,6 +58,7 @@ function DeviceUpdate({ setCurrTopic, currDevice }: any) {
         e.preventDefault()
         const { key, code, name, type, ip, service } = updateDeviceInfo
         const { username, password } = userInput
+        console.log(updateDeviceInfo, currIndex)
         if (!key || !code || !name || !type || !ip || !service[0]) {
             alert('vui lòng điền đầy đủ thông tin!')
             return
@@ -62,10 +67,13 @@ function DeviceUpdate({ setCurrTopic, currDevice }: any) {
             alert('Thông tin đăng nhập không chính xác')
             return
         }
-
+        dispatch(updateDevice({ updateDeviceInfo, currIndex }))
+        console.log({ updateDeviceInfo, currIndex })
         alert('Cập nhật thành công!')
-        console.log(updateDeviceInfo)
-        setCurrTopic('device_list')
+        setTimeout(() => {
+            setCurrTopic('device_list')
+        }, 1000);
+
 
     }
 
@@ -78,7 +86,7 @@ function DeviceUpdate({ setCurrTopic, currDevice }: any) {
                     <div className="device_add-info">
                         <div>
                             <strong>Mã thiết bị: </strong>
-                            <input type="text" value={currDevice.code} placeholder='Nhập mã thiết bị'
+                            <input type="text" value={updateDeviceInfo.code} placeholder='Nhập mã thiết bị'
                                 onChange={(e) => setUpdateDeviceInfo(prev => ({ ...prev, code: e.target.value }))} />
                         </div>
                         <div>
@@ -94,7 +102,7 @@ function DeviceUpdate({ setCurrTopic, currDevice }: any) {
                         </div>
                         <div>
                             <strong>Tên thiết bị: </strong>
-                            <input type="text" value={currDevice.name} placeholder='Nhập tên thiết bị'
+                            <input type="text" value={updateDeviceInfo.name} placeholder='Nhập tên thiết bị'
                                 onChange={(e) => setUpdateDeviceInfo(prev => ({ ...prev, name: e.target.value, key: e.target.value }))}
                             />
                         </div>
@@ -106,7 +114,7 @@ function DeviceUpdate({ setCurrTopic, currDevice }: any) {
                         </div>
                         <div>
                             <strong>Địa chỉ IP: </strong>
-                            <input type="text" value={currDevice.ip} placeholder='Nhập địa chỉ IP'
+                            <input type="text" value={updateDeviceInfo.ip} placeholder='Nhập địa chỉ IP'
                                 onChange={(e) => setUpdateDeviceInfo(prev => ({ ...prev, ip: e.target.value }))}
                             />
                         </div>

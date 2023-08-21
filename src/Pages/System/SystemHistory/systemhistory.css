@@ -1,0 +1,54 @@
+.history_list-wrap {
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+.history_list {
+    height   : 100%;
+    display  : flex;
+    flex-wrap: nowrap;
+}
+
+/* main */
+.history_list-main {
+    width         : 90%;
+    height        : 100%;
+    display       : flex;
+    flex-direction: column;
+}
+
+/* navbar  */
+.history_list-nav {
+    display      : flex;
+    align-items  : center;
+    margin-bottom: 1.6rem;
+}
+
+.history_list-date>span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+}
+
+.history_list-date-range {
+    display    : flex;
+    align-items: center;
+    gap        : 4px;
+    height     : 4.6rem;
+}
+
+.history_list-search {
+    margin-left: auto;
+}
+
+.history_list-search>.search {
+    width: 30rem;
+}
+
+/* table */
+.history_list-table {
+    flex          : 1;
+    display       : flex;
+    padding-bottom: 2.4rem;
+}
