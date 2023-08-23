@@ -1,23 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './deviceupdate.css'
 import { deviceDataType } from '../../../type'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
 import { updateDevice } from '../../../Redux/slice/deviceSlice'
+import { addHistory, fetchHistorys } from '../../../Redux/slice/historySlice'
+import dayjs from 'dayjs'
+import { fetchServices } from '../../../Redux/slice/serviceSlice'
 
 function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
     const serviceList = useAppSelector(state => state.service.serviceList)
+    const historyList = useAppSelector(state => state.history.historyList)
     const dispatch = useAppDispatch()
 
+    useEffect(() => {
+        dispatch(fetchServices())
+        dispatch(fetchHistorys())
+    }, [dispatch])
 
     const [activeDeviceUpdateOption, setActiveDeviceUpdateOptions] = useState<boolean>(false)
     const [deviceAddOption, setDeviceAddOption] = useState<string>('Chọn thiết bị')
 
     const [userInput, setUserInput] = useState<{ username: string, password: string }>(
         {
-            username: 'thucanh',
-            password: '1234'
+            username: '',
+            password: ''
         }
     )
     const currUser = useAppSelector(state => state.users.currUser)
@@ -77,13 +85,21 @@ function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
             return
         }
         dispatch(updateDevice({ updateDeviceInfo, currIndex }))
-        console.log({ updateDeviceInfo, currIndex })
+        // update history
+        dispatch(addHistory(
+            {
+                id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+                name: currUser.name,
+                username: currUser.username,
+                time: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                ip: '192.168.1.1',
+                action: `Cập nhật thiết bị: ${updateDeviceInfo.name}`
+            }
+        ))
         alert('Cập nhật thành công!')
         setTimeout(() => {
             setCurrTopic('device_list')
         }, 1000);
-
-
     }
 
     return (

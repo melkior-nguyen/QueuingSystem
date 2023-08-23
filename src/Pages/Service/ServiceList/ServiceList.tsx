@@ -7,19 +7,25 @@ import { AiFillCaretRight, AiOutlinePlus } from 'react-icons/ai'
 import { GoDotFill } from 'react-icons/go'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { fetchServices } from '../../../Redux/slice/serviceSlice'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import { fetchRoles } from '../../../Redux/slice/roleSlice'
 
 function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
-    const serviceList = useAppSelector(state=> state.service.serviceList)
+    const currUser = useAppSelector(state => state.users.currUser)
+    const roleList = useAppSelector(state => state.role.roleList)
+    const serviceList = useAppSelector(state => state.service.serviceList)
     const dispatch = useAppDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(fetchServices())
-    },[dispatch])
-
-    console.log(serviceList)
+        dispatch(fetchCurrUser())
+        dispatch(fetchRoles())
+    }, [dispatch])
 
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
     const [statusOption, setStatusOption] = useState<string>('Tất cả')
+
+    const [searchInput, setSearchInput] = useState<string>('')
 
     const handleStatusOptions = (option: string) => {
         setStatusOption(option)
@@ -37,6 +43,13 @@ function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
             title: 'Tên dịch vụ',
             key: 'name',
             dataIndex: 'name',
+            filteredValue: [searchInput],
+            onFilter: (value: any, record: any) => {
+                if (value !== '') {
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                }
+                else return record.name
+            }
         },
         {
             title: 'Mô tả',
@@ -91,6 +104,11 @@ function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
                     <span
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
+                            const userRole = roleList.find(role => role.name === currUser.role)
+                            if (!userRole?.role.A.service) {
+                                alert('Không có quyền thực hiện chức năng này!')
+                                return
+                            }
                             setCurrService(record)
                             setCurrIndex(index)
                             setCurrTopic('service_update')
@@ -130,7 +148,7 @@ function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
                         </div>
                         <div className="service_list-search">
                             <span>Từ khóa </span>
-                            <Search />
+                            <Search setSearchInput={setSearchInput} />
                         </div>
                     </div>
                     {/* Table */}
@@ -140,7 +158,15 @@ function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
                 </div>
                 {/* Sub */}
                 <div className="service_list-sub">
-                    <div className="main_btn" onClick={() => setCurrTopic('service_add')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.A.service) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('service_add')
+                    }}>
+
                         <div className="main_btn-icon">
                             <AiOutlinePlus />
                         </div>

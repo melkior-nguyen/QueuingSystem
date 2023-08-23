@@ -56,7 +56,19 @@
     line-height: 2rem;
     font-weight: 700;
     color      : var(--primary-color);
-    cursor     : pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar_header button {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 4rem;
+    cursor: pointer;
 }
 
 

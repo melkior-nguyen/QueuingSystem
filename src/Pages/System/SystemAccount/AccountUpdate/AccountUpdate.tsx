@@ -4,16 +4,16 @@ import { userType } from '../../../../type'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { systemRoleData } from '../../../../testdata'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { updateUser } from '../../../../Redux/slice/userslice'
+import { updateUser } from '../../../../Redux/slice/userSlice'
 import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
 function AccountUpdate({ setCurrTopic, currAccount, currIndex }: any) {
-  const roleList = useAppSelector(state=> state.role.roleList)
+  const roleList = useAppSelector(state => state.role.roleList)
   const dispatch = useAppDispatch()
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchRoles())
-  },[])
+  }, [])
 
   const [activeAccountRoleOption, setActiveAccountRoleOptions] = useState<boolean>(false)
   const [accountRoleOption, setAccountRoleOption] = useState<string>(currAccount.role)
@@ -68,7 +68,7 @@ function AccountUpdate({ setCurrTopic, currAccount, currIndex }: any) {
       alert('Password không chính xác!')
       return
     }
-    dispatch(updateUser({updateAccountInfo, currIndex}))
+    dispatch(updateUser({ updateAccountInfo, currIndex }))
     alert('Cập nhật tài khoản thành công!')
     setTimeout(() => {
       setCurrTopic('system_account_list')

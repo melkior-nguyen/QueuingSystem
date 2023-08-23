@@ -7,8 +7,13 @@ import { customerDataType } from '../../../type'
 import dayjs from 'dayjs'
 import { customerData } from '../../../testdata'
 import { addCustomer, fetchCustomer } from '../../../Redux/slice/customerSlice'
+import { addHistory, fetchHistorys } from '../../../Redux/slice/historySlice'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
 
 function ProgAdd({ setCurrTopic }: any) {
+  const historyList = useAppSelector(state => state.history.historyList)
+  const currUser = useAppSelector(state => state.users.currUser)
+
   const serviceList = useAppSelector(state => state.service.serviceList)
   const customerList = useAppSelector(state => state.customer.customerList)
   const dispatch = useAppDispatch()
@@ -32,13 +37,9 @@ function ProgAdd({ setCurrTopic }: any) {
   useEffect(() => {
     dispatch(fetchServices())
     dispatch(fetchCustomer())
+    dispatch(fetchHistorys())
+    dispatch(fetchCurrUser())
   }, [dispatch])
-
-  useEffect(() => {
-    if (serviceOption !== 'Chọn dịch vụ') {
-      handleNumber();
-    }
-  }, [serviceOption]);
 
   const handleServiceOption = (option: string) => {
     setServiceOption(option)
@@ -47,7 +48,7 @@ function ProgAdd({ setCurrTopic }: any) {
   }
 
   //handle number
-  const handleNumber = () => {
+  const handleNumber = async () => {
     //get current service
     const selectService = serviceList.filter(service => service.name === customerInfo.service)
 
@@ -63,17 +64,21 @@ function ProgAdd({ setCurrTopic }: any) {
       let count = 0
       customerList.forEach(cus => {
         if (cus.service === serviceOption) {
-          const match = cus.number.match(/_(\d+)_?/)
-          if (match && match[1].length === 4) {
+          // check if not random number
+          if (cus.number.length === 9 ||
+            cus.number.length === 4 ||
+            cus.number.length === 14) {
             count++
           }
         }
       })
+
       let strCount = (count + 1).toString()
       while (strCount.length < 4) {
         strCount = '0' + strCount
       }
       number = strCount
+      console.log(number)
     }
     if (selectService[0].progRule.prefix !== 'none') {
       number = selectService[0].progRule.prefix + number
@@ -81,8 +86,17 @@ function ProgAdd({ setCurrTopic }: any) {
     if (selectService[0].progRule.surfix !== 'none') {
       number = number + selectService[0].progRule.surfix
     }
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
     setCustomerInfo(prev => ({ ...prev, number: number, key: number }))
   }
+
+  useEffect(() => {
+    if (serviceOption !== 'Chọn dịch vụ') {
+      handleNumber();
+    }
+  }, [serviceOption]);
 
   // Submit
   const handleSubmitAddProg = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,6 +117,17 @@ function ProgAdd({ setCurrTopic }: any) {
       return
     }
 
+    //update history
+    dispatch(addHistory(
+      {
+        id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+        name: currUser.name,
+        username: currUser.username,
+        time: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+        ip: '192.168.1.1',
+        action: `Thêm vé dịch vụ mới cho khách hàng: ${customerInfo.name}`
+      }
+    ))
     setActiveServiceTicket(true)
     dispatch(addCustomer(customerInfo))
   }
@@ -157,7 +182,23 @@ function ProgAdd({ setCurrTopic }: any) {
       {activeServiceTicket &&
         <div className="service_ticket-wrap">
           <div className="service_ticket">
-            <button onClick={() => setCurrTopic('prog_list')}>&times;</button>
+            <button onClick={() => {
+              setActiveServiceTicket(false)
+              setCustomerInfo({
+                key: '',
+                number: '',
+                name: '',
+                telephone: '',
+                email: '',
+                service: '',
+                time_get: dayjs().format('HH:mm-DD/MM/YYYY'),
+                time_expired: dayjs().add(2, 'day').format('HH:mm-DD/MM/YYYY'),
+                status: 300,
+                source: 'Hệ thống'
+              })
+              setCurrTopic('prog_add')
+            }
+            }>&times;</button>
             <h3>Số thứ tự được cấp</h3>
             <strong>{customerInfo.number}</strong>
             <span>DV: {serviceOption}</span>

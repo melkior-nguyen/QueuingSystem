@@ -10,10 +10,14 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { fetchCustomer } from '../../../Redux/slice/customerSlice'
 import { fetchServices } from '../../../Redux/slice/serviceSlice'
 import dayjs from 'dayjs'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import { fetchRoles } from '../../../Redux/slice/roleSlice'
 
 function ProgList({ setCurrTopic, setCurrProg }: any) {
     const customerList = useAppSelector(state => state.customer.customerList)
     const serviceList = useAppSelector(state => state.service.serviceList)
+    const currUser = useAppSelector(state => state.users.currUser)
+    const roleList = useAppSelector(state => state.role.roleList)
     const dispatch = useAppDispatch()
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
     const [statusOption, setStatusOption] = useState<string>('Tất cả')
@@ -26,10 +30,16 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
 
     const [date, setDate] = useState<{ start: string, end: string }>({ start: '', end: '' })
 
+    const [searchInput, setSearchInput] = useState<string>('')
+
+    useEffect(() => {
+        dispatch(fetchServices())
+        dispatch(fetchCurrUser())
+        dispatch(fetchRoles())
+    }, [dispatch])
     useEffect(() => {
         dispatch(fetchCustomer())
-        dispatch(fetchServices())
-    }, [dispatch])
+    }, [])
 
 
     const handleStatusOptions = (option: string) => {
@@ -58,6 +68,13 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
             title: 'Tên khách hàng',
             key: 'name',
             dataIndex: 'name',
+            filteredValue: [searchInput],
+            onFilter: (value: any, record: any) => {
+                if (value !== '') {
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                }
+                else return record.name
+            }
         },
         {
             title: 'Tên dịch vụ',
@@ -194,7 +211,7 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                         </div>
                         <div className="prog_list-search">
                             <span>Từ khóa </span>
-                            <Search />
+                            <Search setSearchInput={setSearchInput}/>
                         </div>
                     </div>
                     {/* Table */}
@@ -204,7 +221,14 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                 </div>
                 {/* Sub */}
                 <div className="prog_list-sub">
-                    <div className="main_btn" onClick={() => setCurrTopic('prog_add')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.A.customer) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('prog_add')
+                    }}>
                         <div className="main_btn-icon">
                             <AiOutlinePlus />
                         </div>

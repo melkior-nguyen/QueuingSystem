@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './user.css'
 import { useAppDispatch, useAppSelector } from '../../Redux/store'
-import { fetchCurrUser } from '../../Redux/slice/userslice'
+import { fetchCurrUser } from '../../Redux/slice/userSlice'
 
 function User() {
   const currUser = useAppSelector(state => state.users.currUser)

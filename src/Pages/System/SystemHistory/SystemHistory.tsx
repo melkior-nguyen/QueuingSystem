@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './systemhistory.css'
 import { AiFillCaretRight, AiOutlineRight } from 'react-icons/ai'
 import { userType } from '../../../type'
@@ -6,19 +6,45 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { DatePicker, Table } from 'antd'
 import { Search } from '../../../Components'
 import { historyData } from '../../../testdata'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchHistorys } from '../../../Redux/slice/historySlice'
+import dayjs from 'dayjs'
 
 function SystemHistory() {
+  const historyList = useAppSelector(state => state.history.historyList)
+  const [date, setDate] = useState<{ start: string, end: string }>({ start: '', end: '' })
+  const [searchInput, setSearchInput] = useState<string>('')
+
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchHistorys())
+  }, [dispatch])
+
+  console.log(historyList)
 
   const columns = [
     {
       title: 'Tên đăng nhập',
       key: 'username',
-      dataIndex: 'username',
+      dataIndex: 'username'
     },
     {
       title: 'Thời gian tác động',
       key: 'time',
       dataIndex: 'time',
+      filteredValue: [date.start, date.end],
+      onFilter: (value: any, record: any): any => {
+        const recordDate = dayjs(record.time, 'DD/MM/YYYY HH:mm:ss')
+        const startDate = dayjs(date.start, 'YYYY-MM-DD')
+        const endDate = dayjs(date.end, 'YYYY-MM-DD')
+        if (date.start === '' && date.end === '') return record.time
+        if (date.start === '' && recordDate.isBefore(endDate)) return record.time
+        if (date.end === '' && recordDate.isAfter(startDate)) return record.time
+        if (recordDate.isBefore(endDate) && recordDate.isAfter(startDate)) return record.time
+      },
+      sorter: (a: any, b: any) => {
+        return a.id - b.id
+      }
     },
     {
       title: 'IP thực hiện',
@@ -28,7 +54,14 @@ function SystemHistory() {
     {
       title: 'Thao tác thực hiện',
       key: 'action',
-      dataIndex: 'action'
+      dataIndex: 'action',
+      filteredValue: [searchInput],
+      onFilter: (value: any, record: any) => {
+        if (value !== '') {
+          return record.action.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        }
+        else return record.action
+      }
     }
   ]
 
@@ -52,19 +85,21 @@ function SystemHistory() {
               <div className="history_list-date">
                 <span>Chọn thời gian</span>
                 <div className='history_list-date-range'>
-                  <DatePicker className='date_picker' placeholder='Chọn ngày' />
+                  <DatePicker className='date_picker' placeholder='Chọn ngày'
+                    onChange={(date, dateString) => setDate(prev => ({ ...prev, start: dateString }))} />
                   <AiFillCaretRight style={{ color: 'var(--primary-color)' }} />
-                  <DatePicker className='date_picker' placeholder='Chọn ngày' />
+                  <DatePicker className='date_picker' placeholder='Chọn ngày'
+                    onChange={(date, dateString) => setDate(prev => ({ ...prev, end: dateString }))} />
                 </div>
               </div>
               <div className="history_list-search">
                 <span>Từ khóa </span>
-                <Search />
+                <Search setSearchInput={setSearchInput} />
               </div>
             </div>
             {/* Table */}
             <div className="history_list-table">
-              <Table dataSource={historyData} columns={columns} pagination={{ pageSize: 10 }} />
+              <Table dataSource={historyList} columns={columns} pagination={{ pageSize: 10 }} />
             </div>
           </div>
         </div>

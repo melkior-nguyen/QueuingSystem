@@ -5,13 +5,20 @@ import { deviceDataType } from '../../../type'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { addDevice } from '../../../Redux/slice/deviceSlice'
 import { fetchServices } from '../../../Redux/slice/serviceSlice'
+import { addHistory, fetchHistorys } from '../../../Redux/slice/historySlice'
+import dayjs from 'dayjs'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
 
 function DeviceAdd({ setCurrTopic }: any) {
+    const currUser = useAppSelector(state => state.users.currUser)
     const serviceData = useAppSelector(state => state.service.serviceList)
+    const historyList = useAppSelector(state => state.history.historyList)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchServices())
+        dispatch(fetchCurrUser())
+        dispatch(fetchHistorys())
     }, [])
 
     const [activeDeviceAddOption, setActiveDeviceAddOptions] = useState<boolean>(false)
@@ -23,7 +30,6 @@ function DeviceAdd({ setCurrTopic }: any) {
             password: ''
         }
     )
-    const currUser = useAppSelector(state => state.users.currUser)
 
     const [newDeviceInfo, setNewDeviceInfo] = useState<deviceDataType>(
         {
@@ -76,6 +82,18 @@ function DeviceAdd({ setCurrTopic }: any) {
         }
 
         dispatch(addDevice(newDeviceInfo))
+        // history update
+        dispatch(addHistory(
+            {
+                id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+                name: currUser.name,
+                username: currUser.username,
+                time: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                ip: '192.168.1.1',
+                action: `Thêm thiết bị mới: ${newDeviceInfo.name}`
+            }
+        ))
+
         alert('Thêm thiết bị thành công')
         setTimeout(() => {
             setCurrTopic('device_list')

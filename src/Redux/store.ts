@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import usersReducer from "./slice/userslice";
+import usersReducer from "./slice/userSlice";
 import deviceReducer from './slice/deviceSlice'
 import serviceReducer from './slice/serviceSlice'
 import customerReducer from './slice/customerSlice'
 import roleReducer from './slice/roleSlice'
+import historyReducer from './slice/historySlice'
 
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
@@ -13,7 +14,8 @@ export const store = configureStore({
         devices: deviceReducer,
         service: serviceReducer,
         customer: customerReducer,
-        role: roleReducer
+        role: roleReducer,
+        history: historyReducer
     }
 })
 

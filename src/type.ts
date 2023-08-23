@@ -92,3 +92,12 @@ export type systemRoleDataType = {
     }
 }
 
+// history data
+export type systemHistoryType = {
+    id: number,
+    name: string,
+    username: string,
+    time: string,
+    ip: string,
+    action: string
+}

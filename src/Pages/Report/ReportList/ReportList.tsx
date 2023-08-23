@@ -24,10 +24,7 @@ function ReportList() {
         {
             title: 'Số thứ tự',
             key: 'number',
-            dataIndex: 'number',
-            sorter: (a: any, b: any) => {
-                return a.number - b.number
-            },
+            dataIndex: 'number'
         },
         {
             title: 'Tên dịch vụ',
@@ -52,7 +49,7 @@ function ReportList() {
                 if (recordDate.isBefore(endDate) && recordDate.isAfter(startDate)) return record.time_get
             },
             sorter: (a: any, b: any) => {
-                return a.time_get - b.time_get
+                return dayjs(a.time_get).isAfter(dayjs(b.time_get)) ? 1: -1
             },
         },
         {

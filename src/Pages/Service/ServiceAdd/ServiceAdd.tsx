@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './serviceadd.css'
 import { serviceDataType } from '../../../type'
-import { useAppDispatch } from '../../../Redux/store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { addService } from '../../../Redux/slice/serviceSlice'
+import { addHistory, fetchHistorys } from '../../../Redux/slice/historySlice'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import dayjs from 'dayjs'
 
 function ServiceAdd({ setCurrTopic }: any) {
+    const currUser = useAppSelector(state => state.users.currUser)
+    const historyList = useAppSelector(state => state.history.historyList)
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCurrUser())
+        dispatch(fetchHistorys())
+    }, [dispatch])
 
     const [newServiceInfo, setNewServiceInfo] = useState<serviceDataType>(
         {
@@ -119,6 +129,17 @@ function ServiceAdd({ setCurrTopic }: any) {
         }
 
         dispatch(addService(newServiceInfo))
+        //update history
+        dispatch(addHistory(
+            {
+                id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+                name: currUser.name,
+                username: currUser.username,
+                time: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                ip: '192.168.1.1',
+                action: `Thêm dịch vụ mới: ${newServiceInfo.name}`
+            }
+        ))
         alert('Thêm dịch vụ thành công!')
         setTimeout(() => {
             setCurrTopic('service_list')

@@ -6,7 +6,6 @@
     justify-content : flex-start;
     align-items     : center;
     padding         : 1rem 1.6rem;
-
 }
 
 .label_percent {
@@ -18,31 +17,32 @@
     border-radius  : 50%;
     margin-right   : 2.4rem;
     position       : relative;
-    transition: all 0.5s linear;
+    transition     : all 0.5s linear;
 }
 
 .label_percent::after {
-    content      : '';
-    display      : block;
-    position     : absolute;
-    top          : 50%;
-    left         : 50%;
-    transform    : translate(-50%, -50%);
-    width        : 5.5rem;
-    aspect-ratio : 1;
-    border-radius: 50%;
+    content         : '';
+    display         : block;
+    position        : absolute;
+    top             : 50%;
+    left            : 50%;
+    transform       : translate(-50%, -50%);
+    width           : 5.5rem;
+    aspect-ratio    : 1;
+    border-radius   : 50%;
     background-color: #fff;
-    z-index: 1;
+    z-index         : 1;
 }
+
 .label_percent span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size      : 1.4rem;
-    line-height    : 2.4rem;
-    font-weight    : 700;
-    z-index: 2;
+    position   : absolute;
+    top        : 50%;
+    left       : 50%;
+    transform  : translate(-50%, -50%);
+    font-size  : 1.4rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+    z-index    : 2;
 }
 
 
@@ -65,7 +65,7 @@
 
 .label_info {
     margin-left: auto;
-    width: 40%;
+    width      : 40%;
 }
 
 .label_info p {

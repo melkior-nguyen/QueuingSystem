@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './login.css'
 import { BiErrorCircle } from 'react-icons/bi'
 import { useAppDispatch, useAppSelector } from '../../Redux/store'
-import { fetchUsers, updateCurrentUser, updatePassword } from '../../Redux/slice/userslice'
+import { fetchUsers, updateCurrentUser, updatePassword } from '../../Redux/slice/userSlice'
 import { userType } from '../../type'
 
 

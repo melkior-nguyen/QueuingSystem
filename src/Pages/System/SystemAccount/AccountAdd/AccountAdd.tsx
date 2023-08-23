@@ -4,11 +4,11 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { userType } from '../../../../type'
 import { systemRoleData } from '../../../../testdata'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { addUser, fetchUsers } from '../../../../Redux/slice/userslice'
+import { addUser, fetchUsers } from '../../../../Redux/slice/userSlice'
 import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
 function AccountAdd({ setCurrTopic }: any) {
-  const roleList = useAppSelector(state=> state.role.roleList)
+  const roleList = useAppSelector(state => state.role.roleList)
 
   const [activeAccountRoleOption, setActiveAccountRoleOptions] = useState<boolean>(false)
   const [accountRoleOption, setAccountRoleOption] = useState<string>('Chọn vai trò')

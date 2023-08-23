@@ -1,29 +1,40 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import './rolelist.css'
 import { Search } from '../../../../Components'
 import { Table } from 'antd'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { systemRoleData } from '../../../../testdata'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { fetchUsers } from '../../../../Redux/slice/userslice'
+import { fetchCurrUser, fetchUsers } from '../../../../Redux/slice/userSlice'
 import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
 function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
-    const roleList = useAppSelector(state=> state.role.roleList)
+    const roleList = useAppSelector(state => state.role.roleList)
     const userData = useAppSelector(state => state.users.usersList)
+    const currUser = useAppSelector(state => state.users.currUser)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchUsers())
         dispatch(fetchRoles())
+        dispatch(fetchCurrUser())
     }, [dispatch])
 
+
+    const [searchInput, setSearchInput] = useState<string>('')
     //handle table
     const columns = [
         {
             title: 'Tên vai trò',
             key: 'name',
             dataIndex: 'name',
+            filteredValue: [searchInput],
+            onFilter: (value: any, record: any) => {
+                if (value !== '') {
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1   
+                }
+                else return record.name
+            }
         },
         {
             title: 'Số người dùng',
@@ -51,6 +62,11 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
                     <span
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
+                            const userRole = roleList.find(role => role.name === currUser.role)
+                            if (!userRole?.role.B.role) {
+                                alert('Không có quyền thực hiện chức năng này!')
+                                return
+                            }
                             setCurrRole(record)
                             setCurrIndex(index)
                             setCurrTopic('system_role_update')
@@ -72,7 +88,7 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
                     <div className="role_list-nav">
                         <div className="role_list-search">
                             <span>Từ khóa </span>
-                            <Search />
+                            <Search setSearchInput={setSearchInput}/>
                         </div>
                     </div>
                     {/* Table */}
@@ -82,7 +98,14 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
                 </div>
                 {/* Sub */}
                 <div className="role_list-sub">
-                    <div className="main_btn" onClick={() => setCurrTopic('system_role_add')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.B.role) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('system_role_add')
+                    }}>
                         <div className="main_btn-icon">
                             <AiOutlinePlus />
                         </div>

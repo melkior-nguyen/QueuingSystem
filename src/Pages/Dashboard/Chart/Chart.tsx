@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './chart.css'
 import { IoMdArrowDropdown } from 'react-icons/io'
 // chart js
@@ -6,6 +6,9 @@ import { Line } from 'react-chartjs-2'
 import { Chart as Chartjs, ArcElement, Tooltip, Legend } from 'chart.js'
 import { CategoryScale, LinearScale, PointElement, LineElement, Title, Filler } from 'chart.js';
 import { lineChartDataType } from '../../../type'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchCustomer } from '../../../Redux/slice/customerSlice'
+import dayjs from 'dayjs'
 Chartjs.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Filler, ArcElement, Tooltip, Legend)
 
 
@@ -19,25 +22,46 @@ const createGradient = () => {
     return gradient
 }
 
-function Chart() {
+function Chart({ currDate }: any) {
+    const customerList = useAppSelector(state => state.customer.customerList)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCustomer())
+    }, [dispatch])
+
     const [activeOptions, setActiveOptions] = useState<boolean>(false)
     const [chartOption, setChartOption] = useState<string>('Ngày')
 
-    const handleChartOptions = (option: string) => {
-        setChartOption(option)
-        if (option === 'Ngày') setData(dateData)
-        if (option === 'Tuần') setData(weekData)
-        if (option === 'Tháng') setData(monthData)
-        setActiveOptions(false)
-    }
+    const daysInMonth = currDate.daysInMonth()
 
-    const array = []
+    useEffect(() => {
+        if (chartOption === 'Ngày') {
+            setData(dateData)
+        }
+        if (chartOption === 'Tuần') {
+            setData(weekData)
+        }
+        if (chartOption === 'Tháng') {
+            setData(monthData)
+        }
+    }, [currDate])
+
     const dateData: lineChartDataType = {
-        labels: Array.from({ length: 31 }, (_, index) => String(index + 1)),
+        labels: Array.from({ length: daysInMonth }, (x, index) => String(index + 1)),
         datasets: [
             {
                 label: 'Số đã cấp',
-                data: Array.from({ length: 31 }, () => Math.floor(Math.random() * 4000) + 2000),
+                data: Array.from({ length: 31 }, (x, index) => {
+                    // return Math.floor(Math.random() * 4000) + 2000
+                    const customerDateList = customerList.filter(cus => {
+                        return (dayjs(cus.time_get, 'HH:mm-DD/MM/YYYY').date() === index &&
+                            dayjs(cus.time_get, 'HH:mm-DD/MM/YYYY').month() === currDate.month() &&
+                            dayjs(cus.time_get, 'HH:mm-DD/MM/YYYY').year() === currDate.year()
+                        )
+                    })
+                    return customerDateList.length
+                }),
                 fill: true,
                 borderColor: 'rgba(81, 133, 247, 1)',
                 backgroundColor: createGradient(),
@@ -52,7 +76,7 @@ function Chart() {
         datasets: [
             {
                 label: 'Số đã cấp',
-                data: [1200, 3100, 2500, 3000],
+                data: [0, 1, 2, 1],
                 fill: true,
                 borderColor: 'rgba(81, 133, 247, 1)',
                 backgroundColor: createGradient(),
@@ -67,7 +91,12 @@ function Chart() {
         datasets: [
             {
                 label: 'Số đã cấp',
-                data: Array.from({ length: 12 }, () => Math.floor(Math.random() * 4000) + 2000),
+                data: Array.from({ length: 12 }, (x, index) => {
+                    if (index === 7) {
+                        return 6
+                    }
+                    return 0
+                }),
                 fill: true,
                 borderColor: 'rgba(81, 133, 247, 1)',
                 backgroundColor: createGradient(),
@@ -79,6 +108,14 @@ function Chart() {
     };
     // set data
     const [data, setData] = useState<lineChartDataType>(dateData)
+    const handleChartOptions = (option: string) => {
+        setChartOption(option)
+        if (option === 'Ngày') setData(dateData)
+        if (option === 'Tuần') setData(weekData)
+        if (option === 'Tháng') setData(monthData)
+        setActiveOptions(false)
+    }
+
     const options = {
         scales: {
             x: {
@@ -113,7 +150,7 @@ function Chart() {
                 <div className="chart_title">
                     <h3>Bảng thống kê theo {chartOption.toLowerCase()}</h3>
                     {chartOption === 'Ngày' || chartOption === 'Tuần' ?
-                        <span>Tháng 8/2023</span> :
+                        <span>Tháng {currDate.month() + 1}/{currDate.year()}</span> :
                         <span>Năm 2023</span>
                     }
                 </div>

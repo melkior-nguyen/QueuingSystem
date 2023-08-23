@@ -7,22 +7,25 @@ import { Table } from 'antd'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { GoDotFill } from 'react-icons/go'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { fetchUsers } from '../../../../Redux/slice/userslice'
+import { fetchCurrUser, fetchUsers } from '../../../../Redux/slice/userSlice'
 import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
 function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
+  const currUser = useAppSelector(state => state.users.currUser)
   const userData = useAppSelector(state => state.users.usersList)
-  const roleList = useAppSelector(state=> state.role.roleList)
+  const roleList = useAppSelector(state => state.role.roleList)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchUsers())
     dispatch(fetchRoles())
+    dispatch(fetchCurrUser())
   }, [dispatch])
 
 
   const [activeRoleOptions, setActiveRoleOptions] = useState<boolean>(false)
   const [roleOption, setRoleOption] = useState<string>('Tất cả')
+  const [searchInput, setSearchInput] = useState<string>('')
 
   const handleRoleOptions = (option: string) => {
     setRoleOption(option)
@@ -40,6 +43,13 @@ function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
       title: 'Họ và tên',
       key: 'name',
       dataIndex: 'name',
+      filteredValue: [searchInput],
+      onFilter: (value: any, record: any) => {
+        if (value !== '') {
+          return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        }
+        else return record.name
+      }
     },
     {
       title: 'Số điện thoại',
@@ -79,6 +89,11 @@ function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
           <span
             style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
             onClick={() => {
+              const userRole = roleList.find(role => role.name === currUser.role)
+              if (!userRole?.role.B.account) {
+                alert('Không có quyền thực hiện chức năng này!')
+                return
+              }
               setCurrAccount(record)
               setCurrIndex(index)
               setCurrTopic('system_account_update')
@@ -115,7 +130,7 @@ function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
 
             <div className="account_list-search">
               <span>Từ khóa </span>
-              <Search />
+              <Search setSearchInput={setSearchInput} />
             </div>
           </div>
           {/* Table */}
@@ -125,7 +140,14 @@ function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
         </div>
         {/* Sub */}
         <div className="account_list-sub">
-          <div className="main_btn" onClick={() => setCurrTopic('system_account_add')}>
+          <div className="main_btn" onClick={() => {
+            const userRole = roleList.find(role => role.name === currUser.role)
+            if (!userRole?.role.B.account) {
+              alert('Không có quyền thực hiện chức năng này!')
+              return
+            }
+            setCurrTopic('system_account_add')
+          }}>
             <div className="main_btn-icon">
               <AiOutlinePlus />
             </div>

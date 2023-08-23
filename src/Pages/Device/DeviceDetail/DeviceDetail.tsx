@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './devicedetail.css'
 import { deviceDataType } from '../../../type'
-import { useAppSelector } from '../../../Redux/store'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { BsFillPenFill } from 'react-icons/bs'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import { fetchRoles } from '../../../Redux/slice/roleSlice'
 
 function DeviceDetail({ currDevice, setCurrTopic }: any) {
     const currUser = useAppSelector(state => state.users.currUser)
+    const roleList = useAppSelector(state => state.role.roleList)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCurrUser())
+        dispatch(fetchRoles())
+    }, [])
 
     return (
         <div className="device_detail-wrap">
@@ -47,7 +56,14 @@ function DeviceDetail({ currDevice, setCurrTopic }: any) {
                 </div>
                 {/* Sub */}
                 <div className="device_detail-sub">
-                    <div className="main_btn" onClick={()=> setCurrTopic('device_update')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.A.device) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('device_update')
+                    }}>
                         <div className="main_btn-icon">
                             <BsFillPenFill />
                         </div>

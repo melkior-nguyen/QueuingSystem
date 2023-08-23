@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import './servicedetail.css'
 import { AiFillCaretRight, AiOutlinePlus } from 'react-icons/ai'
 import { RiArrowGoBackFill } from 'react-icons/ri'
@@ -6,8 +6,20 @@ import { DatePicker, Table } from 'antd'
 import { Search } from '../../../Components'
 import { GoDotFill } from 'react-icons/go'
 import { IoMdArrowDropdown } from 'react-icons/io'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import { fetchRoles } from '../../../Redux/slice/roleSlice'
 
 function ServiceDetail({ currService, setCurrTopic }: any) {
+    const currUser = useAppSelector(state => state.users.currUser)
+    const roleList = useAppSelector(state => state.role.roleList)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCurrUser())
+        dispatch(fetchRoles())
+    }, [])
+
     const [activeDetailOptions, setActiveDetailOptions] = useState<boolean>(false)
     const [detailOption, setDetailOption] = useState<string>('Tất cả')
 
@@ -169,7 +181,14 @@ function ServiceDetail({ currService, setCurrTopic }: any) {
                 </div>
                 {/* Sub */}
                 <div className="service_detail-sub">
-                    <div className="main_btn" onClick={() => setCurrTopic('service_update')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.A.service) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('service_update')
+                    }}>
                         <div className="main_btn-icon">
                             <AiOutlinePlus />
                         </div>

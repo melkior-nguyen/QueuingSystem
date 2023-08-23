@@ -7,14 +7,19 @@ import { GoDotFill } from 'react-icons/go'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { fetchDevices } from '../../../Redux/slice/deviceSlice'
-import { deviceDataType } from '../../../type'
+import { fetchCurrUser } from '../../../Redux/slice/userSlice'
+import { fetchRoles } from '../../../Redux/slice/roleSlice'
 
 function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
     const deviceList = useAppSelector(state => state.devices.deviceList)
+    const currUser = useAppSelector(state => state.users.currUser)
+    const roleList = useAppSelector(state => state.role.roleList)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchDevices())
+        dispatch(fetchCurrUser())
+        dispatch(fetchRoles())
     }, [dispatch])
 
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
@@ -22,6 +27,8 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
 
     const [statusOption, setStatusOption] = useState<string>('Tất cả')
     const [connectOption, setConnectOption] = useState<string>('Tất cả')
+
+    const [searchInput, setSearchInput] = useState<string>('')
 
 
     const handleStatusOptions = (option: string) => {
@@ -44,6 +51,13 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
             title: 'Tên thiết bị',
             key: 'name',
             dataIndex: 'name',
+            filteredValue: [searchInput],
+            onFilter: (value: any, record: any) => {
+                if (value !== '') {
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1   
+                }
+                else return record.name
+            }
         },
         {
             title: 'Địa chỉ IP',
@@ -119,6 +133,11 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
                     <span
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
+                            const userRole = roleList.find(role => role.name === currUser.role)
+                            if (!userRole?.role.A.device) {
+                                alert('Không có quyền thực hiện chức năng này!')
+                                return
+                            }
                             setCurrDevice(record)
                             setCurrIndex(index)
                             setCurrTopic('device_update')
@@ -164,7 +183,7 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
                         </div>
                         <div className="device_list-search">
                             <span>Từ khóa </span>
-                            <Search />
+                            <Search setSearchInput={setSearchInput} />
                         </div>
                     </div>
                     {/* Table */}
@@ -177,7 +196,14 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
                 </div>
                 {/* Sub */}
                 <div className="device_list-sub">
-                    <div className="main_btn" onClick={() => setCurrTopic('device_add')}>
+                    <div className="main_btn" onClick={() => {
+                        const userRole = roleList.find(role => role.name === currUser.role)
+                        if (!userRole?.role.A.device) {
+                            alert('Không có quyền thực hiện chức năng này!')
+                            return
+                        }
+                        setCurrTopic('device_add')
+                    }}>
                         <div className="main_btn-icon">
                             <AiOutlinePlus />
                         </div>

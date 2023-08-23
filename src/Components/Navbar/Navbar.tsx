@@ -12,7 +12,7 @@ import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { LuLogOut } from 'react-icons/lu'
 import { LuLogIn } from 'react-icons/lu'
 import { Login } from '../index'
-import { updateCurrentUser } from '../../Redux/slice/userslice'
+import { updateCurrentUser } from '../../Redux/slice/userSlice'
 import { useAppDispatch, useAppSelector } from '../../Redux/store'
 
 function Navbar() {
