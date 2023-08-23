@@ -64,6 +64,8 @@ export type customerDataType = {
     key: string,
     number: string,
     name: string,
+    telephone: string,
+    email: string,
     service: string,
     time_get: string,
     time_expired: string,

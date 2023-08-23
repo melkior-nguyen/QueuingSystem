@@ -152,20 +152,6 @@ export const serviceData: serviceDataType[] = [
         }
     },
     {
-        key: '203',
-        code: '203',
-        name: 'Khám phụ sản',
-        desc: 'Kiểm tra sức khỏe phụ khoa, Siêu âm phụ khoa, Xét nghiệm âm đạo, Tư vấn về sức khỏe phụ nữ, Đề xuất điều trị và quản lý sức khỏe phụ sản',
-        status: 200,
-        progRule: {
-            auto: { start: '0001', end: '9999' },
-            prefix: '0001',
-            surfix: 'none',
-            reset: false
-        }
-    },
-
-    {
         key: '204',
         code: '204',
         name: 'Khám hô hấp',
@@ -218,36 +204,10 @@ export const serviceData: serviceDataType[] = [
         }
     },
     {
-        key: '208',
-        code: '208',
-        name: 'Khám thai',
-        desc: 'Kiểm tra tình trạng thai kỳ, Siêu âm thai để theo dõi sự phát triển của thai nhi, Xét nghiệm máu và xét nghiệm tiểu đường thai kỳ, Tư vấn về dinh dưỡng và chăm sóc sức khỏe thai kỳ, Đề xuất kế hoạch chăm sóc và chuẩn bị cho quá trình sinh',
-        status: 404,
-        progRule: {
-            auto: { start: 'none', end: 'none' },
-            prefix: '0001',
-            surfix: 'none',
-            reset: true
-        }
-    },
-    {
         key: '209',
         code: '209',
         name: 'Khám mắt',
         desc: 'Kiểm tra thị lực và góc nhìn, Đo thị lực từ xa và gần, Thử kính đo thị lực, Tư vấn về chọn kính cận, kính lão và kính áp tròng, Điều trị và quản lý các vấn đề về mắt',
-        status: 200,
-        progRule: {
-            auto: { start: '0001', end: '9999' },
-            prefix: '0001',
-            surfix: 'none',
-            reset: false
-        }
-    },
-    {
-        key: '210',
-        code: '210',
-        name: 'Khám xương"',
-        desc: 'Kiểm tra tình trạng xương và khớp, Xét nghiệm tia X để đánh giá xương, Tư vấn về chăm sóc xương và khớp, Đề xuất chế độ tập thể dục phù hợp, Điều trị và quản lý các vấn đề xương và khớp',
         status: 200,
         progRule: {
             auto: { start: '0001', end: '9999' },
@@ -261,124 +221,16 @@ export const serviceData: serviceDataType[] = [
 export const customerData: customerDataType[] = [
     {
         key: '20230001',
-        number: '20230001',
+        number: '2023_0001_Alta',
         name: 'Nguyễn Minh Hiếu',
+        telephone: '0123456798',
+        email: 'minhhieu@gmail.com',
         service: 'Khám tim mạch',
         time_get: '07:30-18/08/2023',
         time_expired: '12:00-24/08/2023',
         status: 404,
         source: 'Kiosk'
-    },
-    {
-        key: '20230002',
-        number: '20230002',
-        name: 'Nguyễn Thị Hương',
-        service: 'Khám phụ sản',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230003',
-        number: '20230003',
-        name: 'Lê Quang Minh',
-        service: 'Khám tổng quát',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Hệ thống'
-    },
-    {
-        key: '20230004',
-        number: '20230004',
-        name: 'Trần Bảo An',
-        service: 'Khám răng hàm mặt',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230005',
-        number: '20230005',
-        name: 'Phạm Đình Hải',
-        service: 'Khám xương',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 300,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230006',
-        number: '20230006',
-        name: 'Vũ Thị Mai',
-        service: 'Khám thai',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230007',
-        number: '20230007',
-        name: 'Đặng Văn Tuấn',
-        service: 'Khám tim mạch',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Hệ thống'
-    },
-    {
-        key: '20230008',
-        number: '20230008',
-        name: 'Lý Ngọc Linh',
-        service: 'Khám mắt',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 404,
-        source: 'Hệ thống'
-    },
-    {
-        key: '20230009',
-        number: '20230009',
-        name: 'Hoàng Minh Tuệ',
-        service: 'Khám mắt',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230010',
-        number: '20230010',
-        name: 'Ngô Văn Khánh',
-        service: 'Khám tổng quát',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 300,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230011',
-        number: '20230011',
-        name: 'Trần Thị Thu',
-        service: 'Khám tổng quát',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
-    {
-        key: '20230012',
-        number: '20230012',
-        name: 'Bùi Văn Đức',
-        service: 'Khám hô hấp',
-        time_get: '07:30-18/08/2023',
-        time_expired: '12:00-24/08/2023',
-        status: 200,
-        source: 'Kiosk'
-    },
+    }
 ]
 
 export const systemRoleData: systemRoleDataType[] = [

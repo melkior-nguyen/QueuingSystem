@@ -39,6 +39,43 @@
     margin-bottom: 2.4rem;
 }
 
+.customer_info {
+    display  : flex;
+    flex-wrap: wrap;
+    gap      : 1.2rem 2.4rem;
+    width    : 50%;
+    margin-bottom: 2.4rem;
+}
+
+.customer_info-box {
+    display       : flex;
+    flex-direction: column;
+    width         : calc(50% - 1.2rem);
+}
+
+.customer_info-box:last-child {
+    width: 100%;
+}
+
+.customer_info-box span {
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+    color      : #535261;
+}
+
+.customer_info-box input {
+    padding    : 0.5rem 1.1rem ;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    border-radius: 4px;
+    border: 1px solid #acacac;
+}
+.customer_info-box input:focus {
+    outline: none;
+    border: 1px solid var(--primary-color);
+}
+
 
 /* btn */
 .prog_add-btn {
@@ -125,7 +162,7 @@
 }
 
 .service_ticket>strong {
-    font-size  : 5.6rem;
+    font-size  : 3.6rem;
     line-height: 6rem;
     font-weight: 800;
     color      : var(--primary-color);

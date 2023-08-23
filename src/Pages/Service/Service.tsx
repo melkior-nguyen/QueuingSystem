@@ -8,7 +8,8 @@ import ServiceAdd from './ServiceAdd/ServiceAdd'
 
 function Service() {
   const [currTopic, setCurrTopic] = useState<string>('service_list')
-  const [currservice, setCurrservice] = useState<serviceDataType | {}>({})
+  const [currService, setCurrService] = useState<serviceDataType | {}>({})
+  const [currIndex, setCurrIndex] = useState<number>(0)
 
 
   return (
@@ -27,9 +28,9 @@ function Service() {
         {currTopic === 'service_update' && <span className='current'> Cập nhật dịch vụ</span>}
       </h3>
       {/* component */}
-      {currTopic === 'service_list' && <ServiceList setCurrTopic={setCurrTopic} setCurrService={setCurrservice} />}
-      {currTopic === 'service_detail' && <ServiceDetail currservice={currservice} setCurrTopic={setCurrTopic}/>}
-      {currTopic === 'service_update' && <ServiceUpdate setCurrTopic={setCurrTopic} currservice={currservice} />}
+      {currTopic === 'service_list' && <ServiceList setCurrTopic={setCurrTopic} setCurrService={setCurrService} setCurrIndex={setCurrIndex} />}
+      {currTopic === 'service_detail' && <ServiceDetail currService={currService} setCurrTopic={setCurrTopic} />}
+      {currTopic === 'service_update' && <ServiceUpdate setCurrTopic={setCurrTopic} currService={currService} currIndex={currIndex}/>}
       {currTopic === 'service_add' && <ServiceAdd setCurrTopic={setCurrTopic} />}
     </div>
   )

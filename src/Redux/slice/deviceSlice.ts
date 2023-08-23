@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { db } from "../Firebase/config";
+import { db } from "../../Firebase/config";
 import { collection, doc, addDoc, getDocs, updateDoc } from "firebase/firestore";
-import { deviceDataType } from "../type";
-import { buildQueries } from "@testing-library/react";
+import { deviceDataType } from "../../type";
 
 const deviceCollectionRef = collection(db, 'device')
 
@@ -59,7 +58,7 @@ const deviceSlice = createSlice({
                 state.deviceList.push(action.payload)
             })
             .addCase(updateDevice.fulfilled, (state, action) => {
-                const updateDevice = {...action.payload.updateDeviceInfo}
+                const updateDevice = { ...action.payload.updateDeviceInfo }
                 state.deviceList[action.payload.currIndex] = updateDevice
             })
     }

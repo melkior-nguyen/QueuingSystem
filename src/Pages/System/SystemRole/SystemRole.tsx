@@ -8,6 +8,7 @@ import RoleUpdate from './RoleUpdate/RoleUpdate'
 function SystemRole() {
   const [currTopic, setCurrTopic] = useState<string>('system_role_list')
   const [currRole, setCurrRole] = useState<systemRoleDataType | {}>({})
+  const [currIndex, setCurrIndex] = useState<number>(0)
 
   return (
     <div className='main_content'>
@@ -24,9 +25,9 @@ function SystemRole() {
         {currTopic === 'system_role_update' && <span className='current'> Cập nhật vai trò</span>}
       </h3>
       {/* component */}
-      {currTopic === 'system_role_list' && <RoleList setCurrTopic={setCurrTopic} setCurrRole={setCurrRole} />}
+      {currTopic === 'system_role_list' && <RoleList setCurrTopic={setCurrTopic} setCurrRole={setCurrRole} setCurrIndex={setCurrIndex} />}
       {currTopic === 'system_role_add' && <RoleAdd setCurrTopic={setCurrTopic} />}
-      {currTopic === 'system_role_update' && <RoleUpdate setCurrTopic={setCurrTopic} currRole={currRole} />}
+      {currTopic === 'system_role_update' && <RoleUpdate setCurrTopic={setCurrTopic} currRole={currRole} currIndex={currIndex} />}
     </div>
   )
 }

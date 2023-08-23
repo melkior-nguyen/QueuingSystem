@@ -4,9 +4,10 @@ import { deviceDataType } from '../../../type'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { AiOutlineClose } from 'react-icons/ai'
-import { updateDevice } from '../../../Redux/deviceSlice'
+import { updateDevice } from '../../../Redux/slice/deviceSlice'
 
 function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
+    const serviceList = useAppSelector(state => state.service.serviceList)
     const dispatch = useAppDispatch()
 
 
@@ -37,11 +38,19 @@ function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
     //handle service add
     const handleServicePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === ',') {
-            setServiceInput('')
-            setUpdateDeviceInfo(prev => {
-                const service = [...prev.service, serviceInput]
-                return { ...prev, service: service }
+            let existService = serviceList.some(service => {
+                return service.name === serviceInput
             })
+            if (!existService) {
+                alert(`Dịch vụ ${serviceInput} không tồn tại!`)
+                return
+            } else {
+                setServiceInput('')
+                setUpdateDeviceInfo(prev => {
+                    const service = [...prev.service, serviceInput]
+                    return { ...prev, service: service }
+                })
+            }
         }
         return
     }

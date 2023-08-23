@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './user.css'
 import { useAppDispatch, useAppSelector } from '../../Redux/store'
-import { fetchCurrUser } from '../../Redux/userslice'
+import { fetchCurrUser } from '../../Redux/slice/userslice'
 
 function User() {
   const currUser = useAppSelector(state => state.users.currUser)
@@ -56,7 +56,7 @@ function User() {
             </div>
           </div>
         </div> :
-        <div className="user_content" style={{fontSize: '4rem'}}>
+        <div className="user_content" style={{ fontSize: '4rem' }}>
           Bạn đang đăng nhập với tài khoản khách
         </div>
       }

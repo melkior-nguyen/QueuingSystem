@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react'
+import React, { useState, ReactElement, useEffect } from 'react'
 import './proglist.css'
 import { GoDotFill } from 'react-icons/go'
 import { IoMdArrowDropdown } from 'react-icons/io'
@@ -6,8 +6,15 @@ import { DatePicker, Table } from 'antd'
 import { AiFillCaretRight, AiOutlinePlus } from 'react-icons/ai'
 import { Search } from '../../../Components'
 import { customerData, serviceData } from '../../../testdata'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchCustomer } from '../../../Redux/slice/customerSlice'
+import { fetchServices } from '../../../Redux/slice/serviceSlice'
+import dayjs from 'dayjs'
 
 function ProgList({ setCurrTopic, setCurrProg }: any) {
+    const customerList = useAppSelector(state => state.customer.customerList)
+    const serviceList = useAppSelector(state => state.service.serviceList)
+    const dispatch = useAppDispatch()
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
     const [statusOption, setStatusOption] = useState<string>('Tất cả')
 
@@ -16,6 +23,14 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
 
     const [activeSourceOptions, setActiveSourceOptions] = useState<boolean>(false)
     const [sourceOption, setSourceOption] = useState<string>('Tất cả')
+
+    const [date, setDate] = useState<{ start: string, end: string }>({ start: '', end: '' })
+
+    useEffect(() => {
+        dispatch(fetchCustomer())
+        dispatch(fetchServices())
+    }, [dispatch])
+
 
     const handleStatusOptions = (option: string) => {
         setStatusOption(option)
@@ -62,7 +77,17 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
         {
             title: 'Hạn sử dụng',
             key: 'time_expired',
-            dataIndex: 'time_expired'
+            dataIndex: 'time_expired',
+            filteredValue: [date.start, date.end],
+            onFilter: (value: any, record: any): any => {
+                const recordDate = dayjs(record.time_expired, 'HH:mm-DD/MM/YYYY')
+                const startDate = dayjs(date.start, 'YYYY-MM-DD')
+                const endDate = dayjs(date.end, 'YYYY-MM-DD')
+                if (date.start === '' && date.end === '') return record.time_expired
+                if (date.start === '' && recordDate.isBefore(endDate)) return record.time_expired
+                if (date.end === '' && recordDate.isAfter(startDate)) return record.time_expired
+                if (recordDate.isBefore(endDate) && recordDate.isAfter(startDate)) return record.time_expired
+            }
         },
         {
             title: 'Trạng thái',
@@ -124,7 +149,7 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                                 <IoMdArrowDropdown />
                                 <div className={!activeServiceOptions ? "dropdown_list hide" : "dropdown_list "}>
                                     <span onClick={() => handleServiceOptions('Tất cả')}>Tất cả</span>
-                                    {serviceData.map(data => {
+                                    {serviceList.map(data => {
                                         return (
                                             <span onClick={() => handleServiceOptions(data.name)}>{data.name}</span>
                                         )
@@ -160,9 +185,11 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                         <div className="prog_list-date">
                             <span>Chọn thời gian</span>
                             <div className='prog_list-date-range'>
-                                <DatePicker className='date_picker' placeholder='Chọn ngày' />
+                                <DatePicker className='date_picker' placeholder='Chọn ngày'
+                                    onChange={(date, dateString) => setDate(prev => ({ ...prev, start: dateString }))} />
                                 <AiFillCaretRight style={{ color: 'var(--primary-color)' }} />
-                                <DatePicker className='date_picker' placeholder='Chọn ngày' />
+                                <DatePicker className='date_picker' placeholder='Chọn ngày'
+                                    onChange={(date, dateString) => setDate(prev => ({ ...prev, end: dateString }))} />
                             </div>
                         </div>
                         <div className="prog_list-search">
@@ -172,7 +199,7 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                     </div>
                     {/* Table */}
                     <div className="prog_list-table">
-                        <Table dataSource={customerData} columns={columns} pagination={{ pageSize: 10 }} />
+                        <Table dataSource={customerList} columns={columns} pagination={{ pageSize: 10 }} />
                     </div>
                 </div>
                 {/* Sub */}

@@ -5,14 +5,17 @@ import { Table } from 'antd'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { systemRoleData } from '../../../../testdata'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { fetchUsers } from '../../../../Redux/userslice'
+import { fetchUsers } from '../../../../Redux/slice/userslice'
+import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
-function RoleList({ setCurrTopic, setCurrRole }: any) {
+function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
+    const roleList = useAppSelector(state=> state.role.roleList)
     const userData = useAppSelector(state => state.users.usersList)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchUsers())
+        dispatch(fetchRoles())
     }, [dispatch])
 
     //handle table
@@ -49,6 +52,7 @@ function RoleList({ setCurrTopic, setCurrRole }: any) {
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
                             setCurrRole(record)
+                            setCurrIndex(index)
                             setCurrTopic('system_role_update')
                         }
                         }
@@ -73,7 +77,7 @@ function RoleList({ setCurrTopic, setCurrRole }: any) {
                     </div>
                     {/* Table */}
                     <div className="role_list-table">
-                        <Table dataSource={systemRoleData} columns={columns} pagination={{ pageSize: 10 }} />
+                        <Table dataSource={roleList} columns={columns} pagination={{ pageSize: 10 }} />
                     </div>
                 </div>
                 {/* Sub */}

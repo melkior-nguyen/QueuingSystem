@@ -4,9 +4,12 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { userType } from '../../../../type'
 import { systemRoleData } from '../../../../testdata'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { fetchUsers } from '../../../../Redux/userslice'
+import { addUser, fetchUsers } from '../../../../Redux/slice/userslice'
+import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
 function AccountAdd({ setCurrTopic }: any) {
+  const roleList = useAppSelector(state=> state.role.roleList)
+
   const [activeAccountRoleOption, setActiveAccountRoleOptions] = useState<boolean>(false)
   const [accountRoleOption, setAccountRoleOption] = useState<string>('Chọn vai trò')
   const [activeAccountStatusOption, setActiveAccountStatusOptions] = useState<boolean>(false)
@@ -16,6 +19,7 @@ function AccountAdd({ setCurrTopic }: any) {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchUsers())
+    dispatch(fetchRoles())
   }, [dispatch])
 
   const [newAccountInfo, setNewAccountInfo] = useState<userType>(
@@ -65,7 +69,11 @@ function AccountAdd({ setCurrTopic }: any) {
       alert('Password không chính xác!')
       return
     }
-    console.log(newAccountInfo)
+    dispatch(addUser(newAccountInfo))
+    alert('Thêm tài khoản thành công')
+    setTimeout(() => {
+      setCurrTopic('system_account_list')
+    }, 1000);
   }
 
   return (
@@ -115,7 +123,7 @@ function AccountAdd({ setCurrTopic }: any) {
                 {accountRoleOption}
                 <IoMdArrowDropdown />
                 <div className={!activeAccountRoleOption ? "dropdown_list hide" : "dropdown_list "}>
-                  {systemRoleData.map(role => {
+                  {roleList.map(role => {
                     return <span onClick={() => handleRoleOption(role.name)}>{role.name}</span>
                   })}
                 </div>

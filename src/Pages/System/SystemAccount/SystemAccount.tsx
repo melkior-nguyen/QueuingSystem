@@ -8,6 +8,7 @@ import AccountUpdate from './AccountUpdate/AccountUpdate'
 function SystemAccount() {
   const [currTopic, setCurrTopic] = useState<string>('system_account_list')
   const [currAccount, setCurrAccount] = useState<userType | {}>({})
+  const [currIndex, setCurrIndex] = useState<number>(0)
 
   return (
     <div className='main_content'>
@@ -24,9 +25,9 @@ function SystemAccount() {
         {currTopic === 'system_account_update' && <span className='current'> Cập nhật tài khoản</span>}
       </h3>
       {/* component */}
-      {currTopic === 'system_account_list' && <AccountList setCurrTopic={setCurrTopic} setCurrAccount={setCurrAccount} />}
+      {currTopic === 'system_account_list' && <AccountList setCurrTopic={setCurrTopic} setCurrAccount={setCurrAccount} setCurrIndex={setCurrIndex} />}
       {currTopic === 'system_account_add' && <AccountAdd setCurrTopic={setCurrTopic} />}
-      {currTopic === 'system_account_update' && <AccountUpdate setCurrTopic={setCurrTopic} currAccount={currAccount} />}
+      {currTopic === 'system_account_update' && <AccountUpdate setCurrTopic={setCurrTopic} currAccount={currAccount} currIndex={currIndex} />}
     </div>
   )
 }

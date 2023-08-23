@@ -3,7 +3,7 @@ import './topbar.css'
 import { BiSolidBell } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../Redux/store'
-import { fetchCurrUser } from '../../Redux/userslice'
+import { fetchCurrUser } from '../../Redux/slice/userslice'
 
 function Topbar() {
     const currUser = useAppSelector(state => state.users.currUser)

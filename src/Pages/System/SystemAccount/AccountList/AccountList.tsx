@@ -7,14 +7,17 @@ import { Table } from 'antd'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { GoDotFill } from 'react-icons/go'
 import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
-import { fetchUsers } from '../../../../Redux/userslice'
+import { fetchUsers } from '../../../../Redux/slice/userslice'
+import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
-function AccountList({ setCurrTopic, setCurrAccount }: any) {
+function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
   const userData = useAppSelector(state => state.users.usersList)
+  const roleList = useAppSelector(state=> state.role.roleList)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchUsers())
+    dispatch(fetchRoles())
   }, [dispatch])
 
 
@@ -54,7 +57,7 @@ function AccountList({ setCurrTopic, setCurrAccount }: any) {
       dataIndex: 'role',
       filteredValue: [roleOption],
       onFilter: (text: any, record: any) => {
-        if(roleOption === 'Tất cả') return record.role
+        if (roleOption === 'Tất cả') return record.role
         return roleOption === record.role
       }
     },
@@ -77,6 +80,7 @@ function AccountList({ setCurrTopic, setCurrAccount }: any) {
             style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
             onClick={() => {
               setCurrAccount(record)
+              setCurrIndex(index)
               setCurrTopic('system_account_update')
             }
             }
@@ -100,7 +104,7 @@ function AccountList({ setCurrTopic, setCurrAccount }: any) {
                 <IoMdArrowDropdown />
                 <div className={!activeRoleOptions ? "dropdown_list hide" : "dropdown_list "}>
                   <span onClick={() => handleRoleOptions('Tất cả')}>Tất cả</span>
-                  {systemRoleData.map(data => {
+                  {roleList.map(data => {
                     return (
                       <span onClick={() => handleRoleOptions(data.name)}>{data.name}</span>
                     )

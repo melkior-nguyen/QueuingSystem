@@ -1,13 +1,23 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import './servicelist.css'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { Search } from '../../../Components'
 import { DatePicker, Table } from 'antd'
-import { serviceData } from '../../../testdata'
 import { AiFillCaretRight, AiOutlinePlus } from 'react-icons/ai'
 import { GoDotFill } from 'react-icons/go'
+import { useAppDispatch, useAppSelector } from '../../../Redux/store'
+import { fetchServices } from '../../../Redux/slice/serviceSlice'
 
-function ServiceList({ setCurrTopic, setCurrService }: any) {
+function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
+    const serviceList = useAppSelector(state=> state.service.serviceList)
+    const dispatch = useAppDispatch()
+
+    useEffect(()=> {
+        dispatch(fetchServices())
+    },[dispatch])
+
+    console.log(serviceList)
+
     const [activeStatusOptions, setActiveStatusOptions] = useState<boolean>(false)
     const [statusOption, setStatusOption] = useState<string>('Tất cả')
 
@@ -82,6 +92,7 @@ function ServiceList({ setCurrTopic, setCurrService }: any) {
                         style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
                         onClick={() => {
                             setCurrService(record)
+                            setCurrIndex(index)
                             setCurrTopic('service_update')
                         }}
                     >Cập nhật</span>
@@ -124,7 +135,7 @@ function ServiceList({ setCurrTopic, setCurrService }: any) {
                     </div>
                     {/* Table */}
                     <div className="service_list-table">
-                        <Table dataSource={serviceData} columns={columns} pagination={{ pageSize: 10 }} />
+                        <Table dataSource={serviceList} columns={columns} pagination={{ pageSize: 10 }} />
                     </div>
                 </div>
                 {/* Sub */}

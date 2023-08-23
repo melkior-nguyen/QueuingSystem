@@ -6,13 +6,13 @@ import { Table } from 'antd'
 import { GoDotFill } from 'react-icons/go'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
-import { fetchDevices } from '../../../Redux/deviceSlice'
+import { fetchDevices } from '../../../Redux/slice/deviceSlice'
 import { deviceDataType } from '../../../type'
 
 function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
     const deviceList = useAppSelector(state => state.devices.deviceList)
     const dispatch = useAppDispatch()
-    
+
     useEffect(() => {
         dispatch(fetchDevices())
     }, [dispatch])
@@ -172,7 +172,7 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
                         <Table
                             columns={columns}
                             dataSource={deviceList}
-                            pagination={{ pageSize: 10, showSizeChanger: false }} />
+                            pagination={{ pageSize: 8, showSizeChanger: false }} />
                     </div>
                 </div>
                 {/* Sub */}

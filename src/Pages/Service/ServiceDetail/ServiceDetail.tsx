@@ -5,8 +5,9 @@ import { RiArrowGoBackFill } from 'react-icons/ri'
 import { DatePicker, Table } from 'antd'
 import { Search } from '../../../Components'
 import { GoDotFill } from 'react-icons/go'
+import { IoMdArrowDropdown } from 'react-icons/io'
 
-function ServiceDetail({ currservice, setCurrTopic }: any) {
+function ServiceDetail({ currService, setCurrTopic }: any) {
     const [activeDetailOptions, setActiveDetailOptions] = useState<boolean>(false)
     const [detailOption, setDetailOption] = useState<string>('Tất cả')
 
@@ -96,18 +97,18 @@ function ServiceDetail({ currservice, setCurrTopic }: any) {
                         <h3>Thông tin dịch vụ</h3>
                         <p>
                             <strong>Mã thiết bị: </strong>
-                            <span>{currservice.code}</span>
+                            <span>{currService.code}</span>
                         </p>
                         <p>
                             <strong>Tên dịch vụ: </strong>
-                            <span>{currservice.name}</span>
+                            <span>{currService.name}</span>
                         </p>
                         <p>
                             <strong>Mô tả: </strong>
-                            <span>{currservice.desc}</span>
+                            <span>{currService.desc}</span>
                         </p>
                         <h3>Quy tắc cấp số</h3>
-                        {currservice.progRule.auto.start !== 'none' &&
+                        {currService.progRule.auto.start !== 'none' &&
                             <div className="service_detail-progression-rule">
                                 <span>Tăng tự động từ</span>
                                 <p>0001</p>
@@ -115,19 +116,19 @@ function ServiceDetail({ currservice, setCurrTopic }: any) {
                                 <p>9999</p>
                             </div>
                         }
-                        {currservice.progRule.prefix !== 'none' &&
+                        {currService.progRule.prefix !== 'none' &&
                             <div className="service_detail-progression-rule">
                                 <span>Prefix</span>
-                                <p>{currservice.progRule.prefix}</p>
+                                <p>{currService.progRule.prefix}</p>
                             </div>
                         }
-                        {currservice.progRule.surfix !== 'none' &&
+                        {currService.progRule.surfix !== 'none' &&
                             <div className="service_detail-progression-rule">
                                 <span>Surfix</span>
-                                <p>{currservice.progRule.surfix}</p>
+                                <p>{currService.progRule.surfix}</p>
                             </div>
                         }
-                        {currservice.progRule.reset &&
+                        {currService.progRule.reset &&
                             <div className="service_detail-progression-rule">
                                 <span>Reset mỗi ngày</span>
                             </div>
@@ -139,6 +140,7 @@ function ServiceDetail({ currservice, setCurrTopic }: any) {
                                 <span>Trạng thái</span>
                                 <div className="dropdown" onClick={() => setActiveDetailOptions(!activeDetailOptions)}>
                                     {detailOption}
+                                    <IoMdArrowDropdown />
                                     <div className={!activeDetailOptions ? "dropdown_list hide" : "dropdown_list "}>
                                         <span onClick={() => handleDetailOption('Tất cả')}>Tất cả</span>
                                         <span onClick={() => handleDetailOption('Đã hoàn thành')}>Đã hoàn thành</span>
@@ -161,7 +163,7 @@ function ServiceDetail({ currservice, setCurrTopic }: any) {
                             </div>
                         </div>
                         <div className="service_detail-table">
-                            <Table dataSource={testData} columns={columns} pagination={{ pageSize: 10 }} />
+                            <Table dataSource={testData} columns={columns} pagination={{ pageSize: 8 }} />
                         </div>
                     </div>
                 </div>

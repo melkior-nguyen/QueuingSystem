@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './deviceadd.css'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { deviceDataType } from '../../../type'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
-import { addDevice } from '../../../Redux/deviceSlice'
+import { addDevice } from '../../../Redux/slice/deviceSlice'
+import { fetchServices } from '../../../Redux/slice/serviceSlice'
 
 function DeviceAdd({ setCurrTopic }: any) {
+    const serviceData = useAppSelector(state => state.service.serviceList)
     const dispatch = useAppDispatch()
 
+    useEffect(() => {
+        dispatch(fetchServices())
+    }, [])
 
     const [activeDeviceAddOption, setActiveDeviceAddOptions] = useState<boolean>(false)
     const [deviceAddOption, setDeviceAddOption] = useState<string>('Chọn thiết bị')
@@ -58,6 +63,18 @@ function DeviceAdd({ setCurrTopic }: any) {
             alert('Thông tin đăng nhập không chính xác')
             return
         }
+        //check with service data list
+        let notService = newDeviceInfo.service.filter(service => {
+            for (const fbService of serviceData) {
+                if (fbService.name === service) return false
+            }
+            return true
+        })
+        if (notService.length > 0) {
+            alert(`Dịch vụ ${notService} không tồn tại!`)
+            return
+        }
+
         dispatch(addDevice(newDeviceInfo))
         alert('Thêm thiết bị thành công')
         setTimeout(() => {

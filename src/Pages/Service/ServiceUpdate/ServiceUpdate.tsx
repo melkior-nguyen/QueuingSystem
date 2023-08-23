@@ -1,33 +1,53 @@
 import React, { useState } from 'react'
 import './serviceupdate.css'
 import { serviceDataType } from '../../../type'
+import { useAppDispatch } from '../../../Redux/store'
+import { updateService } from '../../../Redux/slice/serviceSlice'
 
 
-function ServiceUpdate({ setCurrTopic, currservice }: any) {
-    const [updateServiceInfo, setUpdateServiceInfo] = useState<serviceDataType>(currservice)
+function ServiceUpdate({ setCurrTopic, currService, currIndex }: any) {
+    const dispatch = useAppDispatch()
+
+    const [updateServiceInfo, setUpdateServiceInfo] = useState<serviceDataType>(currService)
 
     //handle progression checkbox
-    const [checkBox1, setCheckbox1] = useState<boolean>(currservice.progRule.auto.start !== 'none')
-    const [checkBox2, setCheckbox2] = useState<boolean>(currservice.progRule.prefix !== 'none')
-    const [checkBox3, setCheckbox3] = useState<boolean>(currservice.progRule.surfix !== 'none')
-    const [checkBox4, setCheckbox4] = useState<boolean>(currservice.progRule.reset !== 'none')
+    const [checkBox1, setCheckbox1] = useState<boolean>(currService.progRule.auto.start !== 'none')
+    const [checkBox2, setCheckbox2] = useState<boolean>(currService.progRule.prefix !== 'none')
+    const [checkBox3, setCheckbox3] = useState<boolean>(currService.progRule.surfix !== 'none')
+    const [checkBox4, setCheckbox4] = useState<boolean>(currService.progRule.reset)
 
 
     const handleProgCheckbox1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             setCheckbox1(false)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.auto.start = 'none'
-                newService.progRule.auto.end = 'none'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: 'none',
+                            end: 'none'
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: prev.progRule.surfix,
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         } else {
             setCheckbox1(true)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.auto.start = '0001'
-                newService.progRule.auto.end = '9999'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: '0001',
+                            end: '9999'
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: prev.progRule.surfix,
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         }
@@ -36,15 +56,33 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
         if (!e.target.checked) {
             setCheckbox2(false)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.prefix = 'none'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: 'none',
+                        surfix: prev.progRule.surfix,
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         } else {
             setCheckbox2(true)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.prefix = '2023'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: '2023_',
+                        surfix: prev.progRule.surfix,
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         }
@@ -53,15 +91,33 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
         if (!e.target.checked) {
             setCheckbox3(false)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.surfix = 'none'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: 'none',
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         } else {
             setCheckbox3(true)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.surfix = '2023'
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: '_Alta',
+                        reset: prev.progRule.reset
+                    }
+                }
                 return newService
             })
         }
@@ -70,15 +126,33 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
         if (!e.target.checked) {
             setCheckbox4(false)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.reset = false
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: prev.progRule.surfix,
+                        reset: false
+                    }
+                }
                 return newService
             })
         } else {
             setCheckbox4(true)
             setUpdateServiceInfo(prev => {
-                const newService = { ...prev }
-                newService.progRule.reset = true
+                const newService = {
+                    ...prev, progRule: {
+                        auto: {
+                            start: prev.progRule.auto.start,
+                            end: prev.progRule.auto.end
+                        },
+                        prefix: prev.progRule.prefix,
+                        surfix: prev.progRule.surfix,
+                        reset: true
+                    }
+                }
                 return newService
             })
         }
@@ -97,9 +171,11 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
             alert("Chọn ít nhất một quy tắc cấp số")
             return
         }
-        console.log(updateServiceInfo)
+        dispatch(updateService({ updateServiceInfo, currIndex }))
         alert('Cập nhật thành công!')
-        setCurrTopic('service_list')
+        setTimeout(() => {
+            setCurrTopic('service_list')
+        }, 1000);
     }
     return (
         <div className="service_update-wrap">
@@ -143,7 +219,7 @@ function ServiceUpdate({ setCurrTopic, currservice }: any) {
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox3(e)} checked={checkBox3} />
                             <span>Surfix</span>
-                            <p>2023</p>
+                            <p>Alta</p>
                         </div>
                         <div className="service_update-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox4(e)} checked={checkBox4} />

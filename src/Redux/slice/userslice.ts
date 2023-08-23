@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { db } from "../Firebase/config";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-import { userType } from "../type";
+import { db } from "../../Firebase/config";
+import { addDoc, collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import { userType } from "../../type";
 
 const userCollectionRef = collection(db, 'users')
 const currUserCollectionRef = collection(db, 'currentuser')
@@ -58,6 +58,31 @@ export const fetchCurrUser = createAsyncThunk(
     }
 )
 
+// add user 
+export const addUser = createAsyncThunk(
+    'user/addUser',
+    async (newuser: any) => {
+        await addDoc(userCollectionRef, newuser)
+        return newuser
+    }
+)
+
+//update user 
+export const updateUser = createAsyncThunk(
+    'user/updateUser',
+    async ({ updateAccountInfo, currIndex }: any) => {
+        const snapshot = await getDocs(userCollectionRef)
+        const idList: string[] = []
+        //get id
+        snapshot.forEach(doc => idList.push(doc.id))
+        //update with currIndex 
+        const currDoc = doc(db, 'users', idList[currIndex])
+        console.log(updateAccountInfo)
+        await updateDoc(currDoc, updateAccountInfo)
+        return { updateAccountInfo, currIndex }
+    }
+)
+
 // user slice
 const userSlice = createSlice({
     name: 'users',
@@ -79,6 +104,13 @@ const userSlice = createSlice({
             })
             .addCase(fetchCurrUser.fulfilled, (state, action) => {
                 state.currUser = action.payload
+            })
+            .addCase(addUser.fulfilled, (state, action) => {
+                state.usersList.push(action.payload)
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                const updateUser = { ...action.payload.updateAccountInfo }
+                state.usersList[action.payload.currIndex] = updateUser
             })
 
     }

@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import './serviceadd.css'
 import { serviceDataType } from '../../../type'
+import { useAppDispatch } from '../../../Redux/store'
+import { addService } from '../../../Redux/slice/serviceSlice'
 
 function ServiceAdd({ setCurrTopic }: any) {
+    const dispatch = useAppDispatch()
+
     const [newServiceInfo, setNewServiceInfo] = useState<serviceDataType>(
         {
             key: '',
@@ -60,7 +64,7 @@ function ServiceAdd({ setCurrTopic }: any) {
             setCheckbox2(true)
             setNewServiceInfo(prev => {
                 const newService = { ...prev }
-                newService.progRule.prefix = '2023'
+                newService.progRule.prefix = '2023_'
                 return newService
             })
         }
@@ -77,7 +81,7 @@ function ServiceAdd({ setCurrTopic }: any) {
             setCheckbox3(true)
             setNewServiceInfo(prev => {
                 const newService = { ...prev }
-                newService.progRule.surfix = '2023'
+                newService.progRule.surfix = '_Alta'
                 return newService
             })
         }
@@ -114,9 +118,12 @@ function ServiceAdd({ setCurrTopic }: any) {
             return
         }
 
-        console.log(newServiceInfo)
+        dispatch(addService(newServiceInfo))
         alert('Thêm dịch vụ thành công!')
-        setCurrTopic('service_list')
+        setTimeout(() => {
+            setCurrTopic('service_list')
+        }, 1000);
+
     }
     return (
         <div className="service_add-wrap">
@@ -160,7 +167,7 @@ function ServiceAdd({ setCurrTopic }: any) {
                         <div className="service_add-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox3(e)} checked={checkBox3} />
                             <span>Surfix</span>
-                            <p>2023</p>
+                            <p>Alta</p>
                         </div>
                         <div className="service_add-progression-rule">
                             <input type="checkbox" onChange={(e) => handleProgCheckbox4(e)} checked={checkBox4} />

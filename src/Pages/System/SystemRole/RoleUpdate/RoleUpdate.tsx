@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './roleupdate.css'
+import { useAppDispatch } from '../../../../Redux/store'
+import { updateRole } from '../../../../Redux/slice/roleSlice'
 
-function RoleUpdate({ setCurrTopic, currRole }: any) {
+function RoleUpdate({ setCurrTopic, currRole, currIndex }: any) {
+    const dispatch = useAppDispatch()
 
     const [roleName, setRoleName] = useState<string>(currRole.name)
     const [roleDesc, setRoleDesc] = useState<string>(currRole.desc)
@@ -110,7 +113,7 @@ function RoleUpdate({ setCurrTopic, currRole }: any) {
     //handle submit
     const handleRoleUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const updateRole = {
+        const updateRoleInfo = {
             name: roleName,
             desc: roleDesc,
             role: {
@@ -125,7 +128,7 @@ function RoleUpdate({ setCurrTopic, currRole }: any) {
                 }
             }
         }
-        if (!updateRole.name || !updateRole.desc) {
+        if (!updateRoleInfo.name || !updateRoleInfo.desc) {
             alert('Vui lòng nhập đầy đủ thông tin')
             return
         }
@@ -134,9 +137,11 @@ function RoleUpdate({ setCurrTopic, currRole }: any) {
             alert('Vui lòng chọn vai trò')
             return
         }
-        console.log(updateRole)
+        dispatch(updateRole({ updateRoleInfo, currIndex }))
         alert('Cập nhật thành công')
-        setCurrTopic('system_role_list')
+        setTimeout(() => {
+            setCurrTopic('system_role_list')
+        }, 1000);
     }
 
 

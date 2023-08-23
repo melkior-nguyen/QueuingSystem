@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import './roleadd.css'
+import { useAppDispatch } from '../../../../Redux/store'
+import { addRole } from '../../../../Redux/slice/roleSlice'
 
 function RoleAdd({ setCurrTopic }: any) {
+  const dispatch = useAppDispatch()
+
   const [roleName, setRoleName] = useState<string>('')
   const [roleDesc, setRoleDesc] = useState<string>('')
 
@@ -117,9 +121,11 @@ function RoleAdd({ setCurrTopic }: any) {
       alert('Vui lòng chọn vai trò')
       return
     }
-    console.log(newRole)
+    dispatch(addRole(newRole))
     alert('Đã thêm vai trò mới')
-    setCurrTopic('system_role_list')
+    setTimeout(() => {
+      setCurrTopic('system_role_list')
+    }, 1000);
   }
 
   return (

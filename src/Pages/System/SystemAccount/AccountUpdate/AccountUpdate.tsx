@@ -3,15 +3,25 @@ import './accountupdate.css'
 import { userType } from '../../../../type'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { systemRoleData } from '../../../../testdata'
+import { useAppDispatch, useAppSelector } from '../../../../Redux/store'
+import { updateUser } from '../../../../Redux/slice/userslice'
+import { fetchRoles } from '../../../../Redux/slice/roleSlice'
 
-function AccountUpdate({ setCurrTopic, currAccount }: any) {
+function AccountUpdate({ setCurrTopic, currAccount, currIndex }: any) {
+  const roleList = useAppSelector(state=> state.role.roleList)
+  const dispatch = useAppDispatch()
+
+  useEffect(()=> {
+    dispatch(fetchRoles())
+  },[])
+
   const [activeAccountRoleOption, setActiveAccountRoleOptions] = useState<boolean>(false)
   const [accountRoleOption, setAccountRoleOption] = useState<string>(currAccount.role)
   const [activeAccountStatusOption, setActiveAccountStatusOptions] = useState<boolean>(false)
   const [accountStatusOption, setAccountStatusOption] = useState<string>('Hoạt động')
 
 
-  const [newAccountInfo, setNewAccountInfo] = useState<userType>(
+  const [updateAccountInfo, setUpdateAccountInfo] = useState<userType>(
     {
       id: currAccount.id,
       name: currAccount.name,
@@ -30,35 +40,39 @@ function AccountUpdate({ setCurrTopic, currAccount }: any) {
   const handleRoleOption = (option: string) => {
     setAccountRoleOption(option)
     setActiveAccountRoleOptions(false)
-    setNewAccountInfo(prev => ({ ...prev, role: option }))
+    setUpdateAccountInfo(prev => ({ ...prev, role: option }))
   }
 
   const handleStatusOption = (option: number) => {
     if (option === 200) setAccountStatusOption('Hoạt động')
     if (option === 404) setAccountStatusOption('Ngưng hoạt động')
-    setNewAccountInfo(prev => ({ ...prev, status: option }))
+    setUpdateAccountInfo(prev => ({ ...prev, status: option }))
     setActiveAccountStatusOptions(false)
   }
 
   const handleAccountUpdateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (newAccountInfo.name === '' ||
-      newAccountInfo.email === '' ||
-      newAccountInfo.username === '' ||
-      newAccountInfo.password === '' ||
-      newAccountInfo.role === '') {
+    if (updateAccountInfo.name === '' ||
+      updateAccountInfo.email === '' ||
+      updateAccountInfo.username === '' ||
+      updateAccountInfo.password === '' ||
+      updateAccountInfo.role === '') {
       alert('Thông tin chưa đầy đủ!')
       return
     }
-    if (newAccountInfo.telephone.length < 10 || Number.isNaN(newAccountInfo.telephone)) {
+    if (updateAccountInfo.telephone.length < 10 || Number.isNaN(updateAccountInfo.telephone)) {
       alert('số điện thoại không hợp lệ')
       return
     }
-    if (newAccountInfo.password !== rePassword) {
+    if (updateAccountInfo.password !== rePassword) {
       alert('Password không chính xác!')
       return
     }
-    console.log(newAccountInfo)
+    dispatch(updateUser({updateAccountInfo, currIndex}))
+    alert('Cập nhật tài khoản thành công!')
+    setTimeout(() => {
+      setCurrTopic('system_account_list')
+    }, 1000);
   }
 
   return (
@@ -70,30 +84,30 @@ function AccountUpdate({ setCurrTopic, currAccount }: any) {
           <div className="account_update-info">
             <div>
               <strong>Họ và tên: </strong>
-              <input type="text" placeholder='Nguyễn Văn A' value={newAccountInfo.name}
-                onChange={(e) => setNewAccountInfo(prev => ({ ...prev, name: e.target.value }))} />
+              <input type="text" placeholder='Nguyễn Văn A' value={updateAccountInfo.name}
+                onChange={(e) => setUpdateAccountInfo(prev => ({ ...prev, name: e.target.value }))} />
             </div>
             <div>
               <strong>Tên đăng nhập: </strong>
-              <input type="text" placeholder='anguyen' value={newAccountInfo.username}
-                onChange={(e) => setNewAccountInfo(prev => ({ ...prev, username: e.target.value }))} />
+              <input type="text" placeholder='anguyen' value={updateAccountInfo.username}
+                onChange={(e) => setUpdateAccountInfo(prev => ({ ...prev, username: e.target.value }))} />
             </div>
             <div>
               <strong>Số điện thoại: </strong>
-              <input type="text" placeholder='Nhập số điện thoại' value={newAccountInfo.telephone}
-                onChange={(e) => setNewAccountInfo(prev => ({ ...prev, telephone: e.target.value }))}
+              <input type="text" placeholder='Nhập số điện thoại' value={updateAccountInfo.telephone}
+                onChange={(e) => setUpdateAccountInfo(prev => ({ ...prev, telephone: e.target.value }))}
               />
             </div>
             <div>
               <strong>Mật khẩu: </strong>
-              <input type="text" placeholder='Nhập mật khẩu' value={newAccountInfo.password}
-                onChange={(e) => setNewAccountInfo(prev => ({ ...prev, password: e.target.value }))}
+              <input type="text" placeholder='Nhập mật khẩu' value={updateAccountInfo.password}
+                onChange={(e) => setUpdateAccountInfo(prev => ({ ...prev, password: e.target.value }))}
               />
             </div>
             <div>
               <strong>Email: </strong>
-              <input type="email" placeholder='Nhập email' value={newAccountInfo.email}
-                onChange={(e) => setNewAccountInfo(prev => ({ ...prev, email: e.target.value }))}
+              <input type="email" placeholder='Nhập email' value={updateAccountInfo.email}
+                onChange={(e) => setUpdateAccountInfo(prev => ({ ...prev, email: e.target.value }))}
               />
             </div>
             <div>
@@ -108,7 +122,7 @@ function AccountUpdate({ setCurrTopic, currAccount }: any) {
                 {accountRoleOption}
                 <IoMdArrowDropdown />
                 <div className={!activeAccountRoleOption ? "dropdown_list hide" : "dropdown_list "}>
-                  {systemRoleData.map(role => {
+                  {roleList.map(role => {
                     return <span onClick={() => handleRoleOption(role.name)}>{role.name}</span>
                   })}
                 </div>
