@@ -34,12 +34,16 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
 
     useEffect(() => {
         dispatch(fetchServices())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchRoles())
     }, [dispatch])
     useEffect(() => {
         dispatch(fetchCustomer())
-    }, [])
+    }, [dispatch])
 
 
     const handleStatusOptions = (option: string) => {
@@ -211,7 +215,7 @@ function ProgList({ setCurrTopic, setCurrProg }: any) {
                         </div>
                         <div className="prog_list-search">
                             <span>Từ khóa </span>
-                            <Search setSearchInput={setSearchInput}/>
+                            <Search setSearchInput={setSearchInput} />
                         </div>
                     </div>
                     {/* Table */}

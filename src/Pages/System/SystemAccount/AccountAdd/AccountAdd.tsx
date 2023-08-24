@@ -19,6 +19,8 @@ function AccountAdd({ setCurrTopic }: any) {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchUsers())
+  }, [dispatch])
+  useEffect(() => {
     dispatch(fetchRoles())
   }, [dispatch])
 
@@ -146,7 +148,7 @@ function AccountAdd({ setCurrTopic }: any) {
           <button className="btn outline" type='button'
             onClick={() => setCurrTopic('system_account_list')}
           >Hủy</button>
-          <button className="btn primary" type='submit'>Thêm thiết bị</button>
+          <button className="btn primary" type='submit'>Thêm tài khoản</button>
         </div>
       </form>
     </div>

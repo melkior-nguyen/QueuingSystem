@@ -18,7 +18,11 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
 
     useEffect(() => {
         dispatch(fetchDevices())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchRoles())
     }, [dispatch])
 
@@ -54,7 +58,7 @@ function DeviceList({ setCurrTopic, setCurrDevice, setCurrIndex }: any) {
             filteredValue: [searchInput],
             onFilter: (value: any, record: any) => {
                 if (value !== '') {
-                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1   
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
                 }
                 else return record.name
             }

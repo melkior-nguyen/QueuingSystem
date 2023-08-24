@@ -53,7 +53,6 @@ function Chart({ currDate }: any) {
             {
                 label: 'Số đã cấp',
                 data: Array.from({ length: 31 }, (x, index) => {
-                    // return Math.floor(Math.random() * 4000) + 2000
                     const customerDateList = customerList.filter(cus => {
                         return (dayjs(cus.time_get, 'HH:mm-DD/MM/YYYY').date() === index &&
                             dayjs(cus.time_get, 'HH:mm-DD/MM/YYYY').month() === currDate.month() &&

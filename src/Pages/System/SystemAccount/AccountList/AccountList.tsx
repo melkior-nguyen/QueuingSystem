@@ -18,7 +18,11 @@ function AccountList({ setCurrTopic, setCurrAccount, setCurrIndex }: any) {
 
   useEffect(() => {
     dispatch(fetchUsers())
+  }, [dispatch])
+  useEffect(() => {
     dispatch(fetchRoles())
+  }, [dispatch])
+  useEffect(() => {
     dispatch(fetchCurrUser())
   }, [dispatch])
 

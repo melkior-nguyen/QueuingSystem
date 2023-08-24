@@ -16,7 +16,11 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
 
     useEffect(() => {
         dispatch(fetchUsers())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchRoles())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
     }, [dispatch])
 
@@ -31,7 +35,7 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
             filteredValue: [searchInput],
             onFilter: (value: any, record: any) => {
                 if (value !== '') {
-                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1   
+                    return record.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
                 }
                 else return record.name
             }
@@ -88,7 +92,7 @@ function RoleList({ setCurrTopic, setCurrRole, setCurrIndex }: any) {
                     <div className="role_list-nav">
                         <div className="role_list-search">
                             <span>Từ khóa </span>
-                            <Search setSearchInput={setSearchInput}/>
+                            <Search setSearchInput={setSearchInput} />
                         </div>
                     </div>
                     {/* Table */}

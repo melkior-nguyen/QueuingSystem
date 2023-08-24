@@ -15,6 +15,8 @@ function ServiceUpdate({ setCurrTopic, currService, currIndex }: any) {
 
     useEffect(() => {
         dispatch(fetchHistorys())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
     }, [dispatch])
 

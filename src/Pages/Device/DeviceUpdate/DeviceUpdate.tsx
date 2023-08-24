@@ -16,6 +16,8 @@ function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
 
     useEffect(() => {
         dispatch(fetchServices())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchHistorys())
     }, [dispatch])
 
@@ -88,7 +90,7 @@ function DeviceUpdate({ setCurrTopic, currDevice, currIndex }: any) {
         // update history
         dispatch(addHistory(
             {
-                id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+                id: historyList.map(his => his.id).sort()[historyList.length - 1] + 1,
                 name: currUser.name,
                 username: currUser.username,
                 time: dayjs().format('DD/MM/YYYY HH:mm:ss'),

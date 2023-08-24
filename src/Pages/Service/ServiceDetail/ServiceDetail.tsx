@@ -9,16 +9,25 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { useAppDispatch, useAppSelector } from '../../../Redux/store'
 import { fetchCurrUser } from '../../../Redux/slice/userSlice'
 import { fetchRoles } from '../../../Redux/slice/roleSlice'
+import { fetchCustomer } from '../../../Redux/slice/customerSlice'
 
 function ServiceDetail({ currService, setCurrTopic }: any) {
     const currUser = useAppSelector(state => state.users.currUser)
     const roleList = useAppSelector(state => state.role.roleList)
+    const customerList = useAppSelector(state => state.customer.customerList)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(fetchCustomer())
+    }, [dispatch])
+
+    useEffect(() => {
         dispatch(fetchRoles())
-    }, [])
+    }, [dispatch])
 
     const [activeDetailOptions, setActiveDetailOptions] = useState<boolean>(false)
     const [detailOption, setDetailOption] = useState<string>('Tất cả')
@@ -26,59 +35,6 @@ function ServiceDetail({ currService, setCurrTopic }: any) {
     const handleDetailOption = (option: string) => {
         setDetailOption(option)
     }
-
-    const testData = [
-        {
-            key: '20230001',
-            number: 20230001,
-            status: 200
-        },
-        {
-            key: '20230002',
-            number: 20230002,
-            status: 200
-        },
-        {
-            key: '20230003',
-            number: 20230003,
-            status: 300
-        },
-        {
-            key: '20230004',
-            number: 20230004,
-            status: 200
-        },
-        {
-            key: '20230005',
-            number: 20230005,
-            status: 404
-        },
-        {
-            key: '20230006',
-            number: 20230006,
-            status: 200
-        },
-        {
-            key: '20230007',
-            number: 20230007,
-            status: 200
-        },
-        {
-            key: '20230008',
-            number: 20230008,
-            status: 200
-        },
-        {
-            key: '20230009',
-            number: 20230009,
-            status: 300
-        },
-        {
-            key: '20230010',
-            number: 20230010,
-            status: 300
-        }
-    ]
 
     const columns = [
         {
@@ -90,6 +46,14 @@ function ServiceDetail({ currService, setCurrTopic }: any) {
             key: 'Trạng thái',
             title: 'Trạng thái',
             dataIndex: 'status',
+            filteredValue: [detailOption],
+            onFilter: (value: any, record: any) => {
+                if (value === 'Tất cả') return record.status
+                if (value === 'Đã hoàn thành') return record.status === 200
+                if (value === 'Đang thực hiện') return record.status === 300
+                if (value === 'Vắng') return record.status === 404
+                return record.status
+            },
             render: (text: number, record: any): ReactElement => {
                 if (text === 200) return <span className="align_center"><GoDotFill style={{ color: 'green' }} />Đã hoàn thành</span>
                 if (text === 300) return <span className="align_center"><GoDotFill style={{ color: 'blue' }} />Đang thực hiện</span>
@@ -175,7 +139,7 @@ function ServiceDetail({ currService, setCurrTopic }: any) {
                             </div>
                         </div>
                         <div className="service_detail-table">
-                            <Table dataSource={testData} columns={columns} pagination={{ pageSize: 8 }} />
+                            <Table dataSource={customerList.filter(cus => cus.service === currService.name)} columns={columns} pagination={{ pageSize: 8 }} />
                         </div>
                     </div>
                 </div>

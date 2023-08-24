@@ -18,7 +18,11 @@ function ServiceList({ setCurrTopic, setCurrService, setCurrIndex }: any) {
 
     useEffect(() => {
         dispatch(fetchServices())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchRoles())
     }, [dispatch])
 

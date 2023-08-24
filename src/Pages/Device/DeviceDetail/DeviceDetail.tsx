@@ -13,8 +13,10 @@ function DeviceDetail({ currDevice, setCurrTopic }: any) {
 
     useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchRoles())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="device_detail-wrap">

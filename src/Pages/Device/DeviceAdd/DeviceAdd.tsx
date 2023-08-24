@@ -17,9 +17,13 @@ function DeviceAdd({ setCurrTopic }: any) {
 
     useEffect(() => {
         dispatch(fetchServices())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchHistorys())
-    }, [])
+    }, [dispatch])
 
     const [activeDeviceAddOption, setActiveDeviceAddOptions] = useState<boolean>(false)
     const [deviceAddOption, setDeviceAddOption] = useState<string>('Chọn thiết bị')
@@ -85,7 +89,7 @@ function DeviceAdd({ setCurrTopic }: any) {
         // history update
         dispatch(addHistory(
             {
-                id: historyList.map(his=> his.id).sort()[historyList.length-1] + 1,
+                id: historyList.map(his => his.id).sort()[historyList.length - 1] + 1,
                 name: currUser.name,
                 username: currUser.username,
                 time: dayjs().format('DD/MM/YYYY HH:mm:ss'),

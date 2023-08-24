@@ -14,6 +14,8 @@ function ServiceAdd({ setCurrTopic }: any) {
 
     useEffect(() => {
         dispatch(fetchCurrUser())
+    }, [dispatch])
+    useEffect(() => {
         dispatch(fetchHistorys())
     }, [dispatch])
 
